@@ -1,11 +1,11 @@
 import type { CSSProperties } from "react";
 import { headerFont } from "@/constants/typography.constants";
-import { clientLayoutColor } from "./client-layout.constants";
+import { homeLayoutColor } from "./home-layout.constants";
 
 export function getHeaderShellStyle(isHome: boolean): CSSProperties {
   return {
-    background: isHome ? clientLayoutColor.surfaceDark : clientLayoutColor.surfaceLight,
-    borderBottom: `1px solid ${isHome ? clientLayoutColor.borderDark : clientLayoutColor.borderLight}`,
+    background: isHome ? homeLayoutColor.surfaceDark : homeLayoutColor.surfaceLight,
+    borderBottom: `1px solid ${isHome ? homeLayoutColor.borderDark : homeLayoutColor.borderLight}`,
     position: "fixed",
     top: 0,
     left: 0,
@@ -21,24 +21,24 @@ export function getHeaderCircleButtonStyle(isHome: boolean): CSSProperties | und
   if (!isHome) return undefined;
 
   return {
-    background: clientLayoutColor.surfaceElevated,
-    borderColor: clientLayoutColor.borderDarkSoft,
+    background: homeLayoutColor.surfaceElevated,
+    borderColor: homeLayoutColor.borderDarkSoft,
     color: "rgba(255,255,255,0.86)",
   };
 }
 
 export function getNavLinkStyle(isActive: boolean): CSSProperties {
   return {
-    color: isActive ? clientLayoutColor.brand : clientLayoutColor.textOnDark,
+    color: isActive ? homeLayoutColor.brand : homeLayoutColor.textOnDark,
     ...headerFont.navLink,
-    borderBottom: isActive ? `2px solid ${clientLayoutColor.brand}` : "2px solid transparent",
+    borderBottom: isActive ? `2px solid ${homeLayoutColor.brand}` : "2px solid transparent",
     paddingBottom: 4,
   };
 }
 
 export function getHeaderActionStyle(isHome: boolean): CSSProperties {
   return {
-    color: isHome ? clientLayoutColor.textOnDark : clientLayoutColor.textOnLight,
+    color: isHome ? homeLayoutColor.textOnDark : homeLayoutColor.textOnLight,
     ...headerFont.action,
   };
 }
@@ -47,7 +47,7 @@ export function getSearchButtonStyle(): CSSProperties {
   return {
     borderRadius: 999,
     borderColor: "#d1d5db",
-    color: clientLayoutColor.textOnLight,
+    color: homeLayoutColor.textOnLight,
     ...headerFont.action,
   };
 }

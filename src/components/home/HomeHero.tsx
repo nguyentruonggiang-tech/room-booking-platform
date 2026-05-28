@@ -2,7 +2,7 @@
 
 import { Button, Col, Grid, Row, Space, Typography } from "antd";
 import { CalendarOutlined, HomeOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
-import ClientContainer from "@/components/layout/home/ClientContainer";
+import HomeContainer from "@/components/layout/home/HomeContainer";
 
 const { Text, Title } = Typography;
 const { useBreakpoint } = Grid;
@@ -22,7 +22,7 @@ export default function HomeHero() {
       }}
     >
       <div style={{ paddingBlock: isMobile ? "42px 0 24px" : "72px 0 42px" }}>
-        <ClientContainer>
+        <HomeContainer>
           <div style={{ textAlign: "center", marginBottom: isMobile ? 22 : 28 }}>
             <Title
               level={isMobile ? 2 : 1}
@@ -105,7 +105,7 @@ export default function HomeHero() {
                 </Col>
             </Row>
           </div>
-        </ClientContainer>
+        </HomeContainer>
       </div>
     </section>
   );

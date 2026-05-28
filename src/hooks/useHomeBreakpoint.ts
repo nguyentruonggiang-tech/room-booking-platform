@@ -1,11 +1,11 @@
 "use client";
 
 import { Grid } from "antd";
-import { headerHeight } from "@/components/layout/home/client-layout.constants";
+import { headerHeight } from "@/components/layout/home/home-layout.constants";
 
 const { useBreakpoint } = Grid;
 
-export function useClientBreakpoint() {
+export function useHomeBreakpoint() {
   const screens = useBreakpoint();
   const isMobile = !screens.md;
   const isDesktopNav = Boolean(screens.lg);

@@ -5,28 +5,28 @@ import { usePathname } from "next/navigation";
 import { Button, Col, Layout, Row, Space, Typography } from "antd";
 import { HomeOutlined, MoonOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { headerFont } from "@/constants/typography.constants";
-import { useClientBreakpoint } from "@/hooks/useClientBreakpoint";
-import { clientLayoutColor, clientNavList } from "./client-layout.constants";
+import { useHomeBreakpoint } from "@/hooks/useHomeBreakpoint";
+import { homeLayoutColor, homeNavList } from "./home-layout.constants";
 import {
   getHeaderActionStyle,
   getHeaderCircleButtonStyle,
   getHeaderShellStyle,
   getNavLinkStyle,
   getSearchButtonStyle,
-} from "./client-layout.styles";
-import ClientContainer from "./ClientContainer";
+} from "./home-layout.styles";
+import HomeContainer from "./HomeContainer";
 
 const { Header } = Layout;
 const { Text } = Typography;
 
 export default function HomeHeader() {
   const pathname = usePathname();
-  const { isMobile, isDesktopNav } = useClientBreakpoint();
+  const { isMobile, isDesktopNav } = useHomeBreakpoint();
   const isHome = pathname === "/";
 
   return (
     <Header style={getHeaderShellStyle(isHome)}>
-      <ClientContainer style={{ paddingBlock: isMobile ? 12 : 0 }}>
+      <HomeContainer style={{ paddingBlock: isMobile ? 12 : 0 }}>
         <Row align="middle" justify="space-between" style={{ minHeight: isMobile ? 64 : 80 }}>
           <Col>
             <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -35,7 +35,7 @@ export default function HomeHeader() {
                   width: 32,
                   height: 32,
                   borderRadius: 8,
-                  background: clientLayoutColor.brandDark,
+                  background: homeLayoutColor.brandDark,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -43,14 +43,14 @@ export default function HomeHeader() {
               >
                 <HomeOutlined style={{ color: "#fff", fontSize: 16 }} />
               </div>
-              <Text style={{ color: clientLayoutColor.brand, ...headerFont.logo }}>AirBnb</Text>
+              <Text style={{ color: homeLayoutColor.brand, ...headerFont.logo }}>AirBnb</Text>
             </Link>
           </Col>
 
           {isHome && isDesktopNav && (
             <Col>
               <Space size={32}>
-                {clientNavList.map((navItem, index) => (
+                {homeNavList.map((navItem, index) => (
                   <Link key={navItem.label} href={navItem.href} style={getNavLinkStyle(index === 0)}>
                     {navItem.label}
                   </Link>
@@ -76,7 +76,7 @@ export default function HomeHeader() {
             </Space>
           </Col>
         </Row>
-      </ClientContainer>
+      </HomeContainer>
     </Header>
   );
 }

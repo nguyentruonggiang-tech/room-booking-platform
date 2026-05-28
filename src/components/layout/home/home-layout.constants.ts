@@ -1,4 +1,4 @@
-export const clientLayoutColor = {
+export const homeLayoutColor = {
   brand: "#22d3c5",
   brandDark: "#0D9488",
   surfaceDark: "#15181d",
@@ -20,7 +20,7 @@ export const headerHeight = {
   desktop: 80,
 } as const;
 
-export const clientNavList = [
+export const homeNavList = [
   { label: "Nơi ở", href: "/" },
   { label: "Trải nghiệm", href: "#" },
   { label: "Trải nghiệm trực tiếp", href: "#" },
@@ -80,3 +80,6 @@ export const footerColumnList = [
 export const footerLegalLinkList = ["Quyền riêng tư", "Điều khoản", "Sơ đồ trang web"] as const;
 
 export const footerLocaleList = ["Tiếng Việt (VN)", "$ USD"] as const;
+
+export type HomeNavItem = (typeof homeNavList)[number];
+export type FooterColumn = (typeof footerColumnList)[number];

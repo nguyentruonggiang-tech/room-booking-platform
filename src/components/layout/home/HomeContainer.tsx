@@ -2,14 +2,14 @@
 
 import type { CSSProperties, PropsWithChildren } from "react";
 import { Col, Row } from "antd";
-import { useClientBreakpoint } from "@/hooks/useClientBreakpoint";
+import { useHomeBreakpoint } from "@/hooks/useHomeBreakpoint";
 
-type ClientContainerProps = PropsWithChildren<{
+export type HomeContainerProps = PropsWithChildren<{
   style?: CSSProperties;
 }>;
 
-export default function ClientContainer({ children, style }: ClientContainerProps) {
-  const { isMobile } = useClientBreakpoint();
+export default function HomeContainer({ children, style }: HomeContainerProps) {
+  const { isMobile } = useHomeBreakpoint();
 
   return (
     <div style={{ paddingInline: isMobile ? 12 : 16, ...style }}>
