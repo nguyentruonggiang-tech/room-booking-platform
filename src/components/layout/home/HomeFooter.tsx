@@ -2,6 +2,8 @@
 
 import { Col, Layout, Row, Space, Typography } from "antd";
 import { FacebookFilled, InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
+import { footerFont } from "@/constants/typography.constants";
+import ClientContentWidth from "./ClientContentWidth";
 
 const { Footer } = Layout;
 const { Text } = Typography;
@@ -66,16 +68,14 @@ export default function HomeFooter() {
         padding: 0,
       }}
     >
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 24px 24px" }}>
+      <ClientContentWidth style={{ paddingTop: 40, paddingBottom: 24 }}>
         <Row gutter={[24, 24]}>
           {footerColumnList.map((footerColumn) => (
             <Col key={footerColumn.title} xs={24} sm={12} md={12} lg={6}>
-              <Space direction="vertical" size={8}>
-                <Text strong style={{ color: "#f5f5f5", fontSize: 12 }}>
-                  {footerColumn.title}
-                </Text>
+              <Space direction="vertical" size={10}>
+                <Text style={{ color: "#f5f5f5", ...footerFont.columnTitle }}>{footerColumn.title}</Text>
                 {footerColumn.itemList.map((footerItem) => (
-                  <Text key={footerItem} style={{ color: "rgba(255,255,255,0.74)", fontSize: 13 }}>
+                  <Text key={footerItem} style={{ color: "rgba(255,255,255,0.78)", ...footerFont.columnItem }}>
                     {footerItem}
                   </Text>
                 ))}
@@ -91,26 +91,28 @@ export default function HomeFooter() {
         >
           <Col>
             <Space size={12}>
-              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>© 2026 Airbnb, Inc. All rights reserved</Text>
-              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>·</Text>
-              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>Quyền riêng tư</Text>
-              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>·</Text>
-              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>Điều khoản</Text>
-              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>·</Text>
-              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>Sơ đồ trang web</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", ...footerFont.bottomMeta }}>
+                © 2026 Airbnb, Inc. All rights reserved
+              </Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", ...footerFont.bottomMeta }}>·</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", ...footerFont.bottomMeta }}>Quyền riêng tư</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", ...footerFont.bottomMeta }}>·</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", ...footerFont.bottomMeta }}>Điều khoản</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", ...footerFont.bottomMeta }}>·</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", ...footerFont.bottomMeta }}>Sơ đồ trang web</Text>
             </Space>
           </Col>
           <Col>
             <Space size={14}>
-              <Text style={{ color: "rgba(255,255,255,0.82)", fontSize: 14 }}>Tiếng Việt (VN)</Text>
-              <Text style={{ color: "rgba(255,255,255,0.82)", fontSize: 14 }}>$ USD</Text>
+              <Text style={{ color: "rgba(255,255,255,0.82)", ...footerFont.bottomLocale }}>Tiếng Việt (VN)</Text>
+              <Text style={{ color: "rgba(255,255,255,0.82)", ...footerFont.bottomLocale }}>$ USD</Text>
               <FacebookFilled style={{ color: "rgba(255,255,255,0.82)", fontSize: 16 }} />
               <TwitterOutlined style={{ color: "rgba(255,255,255,0.82)", fontSize: 16 }} />
               <InstagramOutlined style={{ color: "rgba(255,255,255,0.82)", fontSize: 16 }} />
             </Space>
           </Col>
         </Row>
-      </div>
+      </ClientContentWidth>
     </Footer>
   );
 }
