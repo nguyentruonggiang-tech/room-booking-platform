@@ -1,20 +1,116 @@
 "use client";
 
-import { Layout } from "antd";
+import { Col, Layout, Row, Space, Typography } from "antd";
+import { FacebookFilled, InstagramOutlined, TwitterOutlined } from "@ant-design/icons";
 
 const { Footer } = Layout;
+const { Text } = Typography;
+
+const footerColumnList = [
+  {
+    title: "GIỚI THIỆU",
+    itemList: [
+      "Phương thức hoạt động của Airbnb",
+      "Trang tin tức",
+      "Nhà đầu tư",
+      "Airbnb Plus",
+      "Airbnb Luxe",
+      "HotelTonight",
+      "Airbnb for Work",
+      "Nhờ có Host, mọi điều đều có thể",
+      "Cơ hội nghề nghiệp",
+      "Thư của nhà sáng lập",
+    ],
+  },
+  {
+    title: "CỘNG ĐỒNG",
+    itemList: [
+      "Sự đa dạng và Cảm giác thân thuộc",
+      "Tiếp ứng nhà ở cho người tị nạn",
+      "Bài viết về khả năng tiếp cận",
+      "Đối tác liên kết của Airbnb",
+      "Chào đón người tị nạn",
+      "Lượt giới thiệu của khách",
+      "Airbnb.org",
+    ],
+  },
+  {
+    title: "ĐÓN TIẾP KHÁCH",
+    itemList: [
+      "Cho thuê nhà",
+      "Tổ chức Trải nghiệm trực tuyến",
+      "Tổ chức trải nghiệm",
+      "Đón tiếp khách có trách nhiệm",
+      "Trung tâm tài nguyên",
+      "Trung tâm cộng đồng",
+    ],
+  },
+  {
+    title: "HỖ TRỢ",
+    itemList: [
+      "Biện pháp ứng phó với đại dịch COVID-19",
+      "Trung tâm trợ giúp",
+      "Các tùy chọn hủy",
+      "Hỗ trợ khu dân cư",
+      "Tin cậy và an toàn",
+    ],
+  },
+];
 
 export default function HomeFooter() {
   return (
     <Footer
       style={{
-        background: "#fff",
-        borderTop: "1px solid #f0f0f0",
-        padding: "16px 24px",
-        textAlign: "center",
+        background: "#15181d",
+        borderTop: "1px solid #242a33",
+        padding: 0,
       }}
     >
-      Client Footer
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 24px 24px" }}>
+        <Row gutter={[24, 24]}>
+          {footerColumnList.map((footerColumn) => (
+            <Col key={footerColumn.title} xs={24} sm={12} md={12} lg={6}>
+              <Space direction="vertical" size={8}>
+                <Text strong style={{ color: "#f5f5f5", fontSize: 12 }}>
+                  {footerColumn.title}
+                </Text>
+                {footerColumn.itemList.map((footerItem) => (
+                  <Text key={footerItem} style={{ color: "rgba(255,255,255,0.74)", fontSize: 13 }}>
+                    {footerItem}
+                  </Text>
+                ))}
+              </Space>
+            </Col>
+          ))}
+        </Row>
+
+        <Row
+          justify="space-between"
+          align="middle"
+          style={{ borderTop: "1px solid #2b3340", marginTop: 28, paddingTop: 18, gap: 12 }}
+        >
+          <Col>
+            <Space size={12}>
+              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>© 2026 Airbnb, Inc. All rights reserved</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>·</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>Quyền riêng tư</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>·</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>Điều khoản</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>·</Text>
+              <Text style={{ color: "rgba(255,255,255,0.62)", fontSize: 14 }}>Sơ đồ trang web</Text>
+            </Space>
+          </Col>
+          <Col>
+            <Space size={14}>
+              <Text style={{ color: "rgba(255,255,255,0.82)", fontSize: 14 }}>Tiếng Việt (VN)</Text>
+              <Text style={{ color: "rgba(255,255,255,0.82)", fontSize: 14 }}>$ USD</Text>
+              <FacebookFilled style={{ color: "rgba(255,255,255,0.82)", fontSize: 16 }} />
+              <TwitterOutlined style={{ color: "rgba(255,255,255,0.82)", fontSize: 16 }} />
+              <InstagramOutlined style={{ color: "rgba(255,255,255,0.82)", fontSize: 16 }} />
+            </Space>
+          </Col>
+        </Row>
+      </div>
     </Footer>
   );
 }

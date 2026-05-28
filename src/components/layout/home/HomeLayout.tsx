@@ -9,9 +9,9 @@ const { Content } = Layout;
 
 export default function HomeLayout({ children }: PropsWithChildren) {
   return (
-    <Layout style={{ minHeight: "100vh", background: "#fff" }}>
+    <Layout style={{ minHeight: "100vh", background: "#ffffff" }}>
       <HomeHeader />
-      <Content style={{ padding: "24px", width: "100%", maxWidth: 1200, margin: "0 auto" }}>
+      <Content style={{ padding: "0 24px 40px", width: "100%", maxWidth: 1280, margin: "0 auto" }}>
         {children}
       </Content>
       <HomeFooter />
