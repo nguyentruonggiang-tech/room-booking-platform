@@ -1,24 +1,23 @@
 "use client";
 
 import type { PropsWithChildren } from "react";
-import { Grid, Layout } from "antd";
+import { Layout } from "antd";
+import { useClientBreakpoint } from "@/hooks/useClientBreakpoint";
+import { clientLayoutColor } from "./client-layout.constants";
 import HomeFooter from "./HomeFooter";
 import HomeHeader from "./HomeHeader";
 
 const { Content } = Layout;
-const { useBreakpoint } = Grid;
 
 export default function HomeLayout({ children }: PropsWithChildren) {
-  const screens = useBreakpoint();
-  const isMobile = !screens.md;
-  const headerOffset = isMobile ? 88 : 80;
+  const { headerOffset } = useClientBreakpoint();
 
   return (
-    <Layout style={{ minHeight: "100vh", background: "#ffffff" }}>
+    <Layout style={{ minHeight: "100vh", background: clientLayoutColor.surfaceLight }}>
       <HomeHeader />
       <Content
         style={{
-          padding: `0 24px 40px`,
+          padding: "0 24px 40px",
           paddingTop: headerOffset,
           width: "100%",
           maxWidth: 1280,
