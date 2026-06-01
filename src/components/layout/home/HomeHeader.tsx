@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { Button, Col, Layout, Row, Space, Typography } from "antd";
 import { HomeOutlined, MoonOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { headerFont } from "@/constants/typography.constants";
-import { useHomeBreakpoint } from "@/hooks/useHomeBreakpoint";
 import { homeLayoutColor, homeNavList } from "./home-layout.constants";
 import {
   getHeaderActionStyle,
@@ -15,19 +14,19 @@ import {
   getSearchButtonStyle,
 } from "./home-layout.styles";
 import HomeContainer from "./HomeContainer";
+import styles from "./home-layout.module.css";
 
 const { Header } = Layout;
 const { Text } = Typography;
 
 export default function HomeHeader() {
   const pathname = usePathname();
-  const { isMobile, isDesktopNav } = useHomeBreakpoint();
   const isHome = pathname === "/";
 
   return (
     <Header style={getHeaderShellStyle(isHome)}>
-      <HomeContainer style={{ paddingBlock: isMobile ? 12 : 0 }}>
-        <Row align="middle" justify="space-between" style={{ minHeight: isMobile ? 64 : 80 }}>
+      <HomeContainer className={styles.headerContainer}>
+        <Row align="middle" justify="space-between" className={styles.headerRow}>
           <Col>
             <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <div
@@ -47,8 +46,8 @@ export default function HomeHeader() {
             </Link>
           </Col>
 
-          {isHome && isDesktopNav && (
-            <Col>
+          {isHome && (
+            <Col className={styles.desktopNav}>
               <Space size={32}>
                 {homeNavList.map((navItem, index) => (
                   <Link key={navItem.label} href={navItem.href} style={getNavLinkStyle(index === 0)}>
@@ -60,11 +59,13 @@ export default function HomeHeader() {
           )}
 
           <Col>
-            <Space size={isMobile ? 10 : 14}>
-              {!isHome && !isMobile && (
-                <Button icon={<SearchOutlined />} style={getSearchButtonStyle()}>
-                  Tìm kiếm
-                </Button>
+            <Space size={14}>
+              {!isHome && (
+                <span className={styles.desktopOnly}>
+                  <Button icon={<SearchOutlined />} style={getSearchButtonStyle()}>
+                    Tìm kiếm
+                  </Button>
+                </span>
               )}
               <Button type="text" style={getHeaderActionStyle(isHome)}>
                 Đón tiếp khách

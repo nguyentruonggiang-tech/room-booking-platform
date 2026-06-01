@@ -33,7 +33,7 @@ export default function HomeFooter() {
         <Row gutter={[24, 24]}>
           {footerColumnList.map((footerColumn) => (
             <Col key={footerColumn.title} xs={24} sm={12} md={12} lg={6}>
-              <Space direction="vertical" size={10}>
+              <Space orientation="vertical" size={10}>
                 <Text style={{ color: homeLayoutColor.textTitleOnDark, ...footerFont.columnTitle }}>
                   {footerColumn.title}
                 </Text>
