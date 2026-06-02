@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { RegisterRequestBody } from "@/features/auth/types/auth.type";
+import type { LoginRequestBody, RegisterRequestBody } from "@/features/auth/types/auth.type";
 
 const vnPhoneRegex = /^(0|\+84)(3|5|7|8|9)\d{8}$/;
 
@@ -39,3 +39,16 @@ export function toRegisterRequestBody(values: RegisterFormValues): RegisterReque
   };
 }
 
+export const loginSchema = z.object({
+  email: z.string().trim().min(1, "Vui lòng nhập email").email("Email không hợp lệ"),
+  password: z.string().min(1, "Vui lòng nhập mật khẩu"),
+});
+
+export type LoginFormValues = z.infer<typeof loginSchema>;
+
+export function toLoginRequestBody(values: LoginFormValues): LoginRequestBody {
+  return {
+    email: values.email,
+    password: values.password,
+  };
+}

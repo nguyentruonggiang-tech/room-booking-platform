@@ -14,3 +14,13 @@ export type RegisterRequestBody = Pick<
   "name" | "email" | "password" | "phone" | "birthday" | "gender"
 >;
 
+export type LoginRequestBody = {
+  email: string;
+  password: string;
+};
+
+export type LoginResponse = {
+  accessToken: string;
+  refreshToken: string;
+  user: ThongTinNguoiDung;
+};
