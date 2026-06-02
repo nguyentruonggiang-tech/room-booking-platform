@@ -1,25 +1,3 @@
-export const homeLayoutColor = {
-  brand: "#22d3c5",
-  brandDark: "#0D9488",
-  surfaceDark: "#15181d",
-  surfaceLight: "#ffffff",
-  borderDark: "#242a33",
-  borderDarkSoft: "#2b3340",
-  borderLight: "#ebebeb",
-  surfaceElevated: "#1f2530",
-  textOnDark: "rgba(255,255,255,0.9)",
-  textMutedOnDark: "rgba(255,255,255,0.78)",
-  textSubtleOnDark: "rgba(255,255,255,0.62)",
-  textLocaleOnDark: "rgba(255,255,255,0.82)",
-  textOnLight: "#4b5563",
-  textTitleOnDark: "#f5f5f5",
-} as const;
-
-export const headerHeight = {
-  mobile: 88,
-  desktop: 80,
-} as const;
-
 export const homeNavList = [
   { label: "Nơi ở", href: "/" },
   { label: "Trải nghiệm", href: "#" },

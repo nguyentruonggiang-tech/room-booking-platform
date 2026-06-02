@@ -1,20 +1,13 @@
-"use client";
-
 import type { PropsWithChildren } from "react";
-import { Layout } from "antd";
-import { homeLayoutColor } from "./home-layout.constants";
-import HomeFooter from "./HomeFooter";
 import HomeHeader from "./HomeHeader";
-import styles from "./home-layout.module.css";
-
-const { Content } = Layout;
+import HomeFooter from "./HomeFooter";
 
 export default function HomeLayout({ children }: PropsWithChildren) {
   return (
-    <Layout style={{ minHeight: "100vh", background: homeLayoutColor.surfaceLight }}>
+    <div className="flex min-h-screen flex-col bg-white">
       <HomeHeader />
-      <Content className={styles.content}>{children}</Content>
+      <main className="mt-20 flex-1">{children}</main>
       <HomeFooter />
-    </Layout>
+    </div>
   );
 }

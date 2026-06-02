@@ -2,82 +2,66 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button, Col, Layout, Row, Space, Typography } from "antd";
-import { HomeOutlined, MoonOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { headerFont } from "@/constants/typography.constants";
-import { homeLayoutColor, homeNavList } from "./home-layout.constants";
-import {
-  getHeaderActionStyle,
-  getHeaderCircleButtonStyle,
-  getHeaderShellStyle,
-  getNavLinkStyle,
-  getSearchButtonStyle,
-} from "./home-layout.styles";
-import HomeContainer from "./HomeContainer";
-import styles from "./home-layout.module.css";
-
-const { Header } = Layout;
-const { Text } = Typography;
+import { Home, Moon, Search, User } from "lucide-react";
+import { homeNavList } from "./home-layout.constants";
 
 export default function HomeHeader() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   return (
-    <Header style={getHeaderShellStyle(isHome)}>
-      <HomeContainer className={styles.headerContainer}>
-        <Row align="middle" justify="space-between" className={styles.headerRow}>
-          <Col>
-            <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <div
-                style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 8,
-                  background: homeLayoutColor.brandDark,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border-dark bg-surface-dark">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-8">
+
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-dark">
+            <Home size={16} className="text-white" />
+          </div>
+          <span className="text-xl font-semibold text-brand">AirBnb</span>
+        </Link>
+
+        {/* Nav (chỉ hiển thị ở trang chủ) */}
+        {isHome && (
+          <nav className="hidden items-center gap-8 md:flex">
+            {homeNavList.map((item, index) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`border-b-2 pb-1 text-base font-medium transition-colors ${
+                  index === 0
+                    ? "border-brand text-brand"
+                    : "border-transparent text-white/90 hover:text-brand"
+                }`}
               >
-                <HomeOutlined style={{ color: "#fff", fontSize: 16 }} />
-              </div>
-              <Text style={{ color: homeLayoutColor.brand, ...headerFont.logo }}>AirBnb</Text>
-            </Link>
-          </Col>
-
-          {isHome && (
-            <Col className={styles.desktopNav}>
-              <Space size={32}>
-                {homeNavList.map((navItem, index) => (
-                  <Link key={navItem.label} href={navItem.href} style={getNavLinkStyle(index === 0)}>
-                    {navItem.label}
-                  </Link>
-                ))}
-              </Space>
-            </Col>
-          )}
-
-          <Col>
-            <Space size={14}>
-              {!isHome && (
-                <span className={styles.desktopOnly}>
-                  <Button icon={<SearchOutlined />} style={getSearchButtonStyle()}>
-                    Tìm kiếm
-                  </Button>
-                </span>
-              )}
-              <Button type="text" style={getHeaderActionStyle(isHome)}>
-                Đón tiếp khách
-              </Button>
-              <Button shape="circle" icon={<MoonOutlined />} style={getHeaderCircleButtonStyle(isHome)} />
-              <Link href="/dang-nhap">
-                <Button shape="circle" icon={<UserOutlined />} style={getHeaderCircleButtonStyle(isHome)} />
+                {item.label}
               </Link>
-            </Space>
-          </Col>
-        </Row>
-      </HomeContainer>
-    </Header>
+            ))}
+          </nav>
+        )}
+
+        {/* Actions */}
+        <div className="flex items-center gap-3">
+          {!isHome && (
+            <button className="hidden items-center gap-2 rounded-full border border-border-dark-soft bg-surface-elevated px-4 py-2 text-sm font-medium text-white/90 transition-colors hover:text-brand md:flex">
+              <Search size={14} />
+              Tìm kiếm
+            </button>
+          )}
+          <button className="hidden text-sm font-medium text-white/90 transition-colors hover:text-brand md:block">
+            Đón tiếp khách
+          </button>
+          <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-brand">
+            <Moon size={16} />
+          </button>
+          <Link href="/dang-nhap">
+            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-brand">
+              <User size={16} />
+            </button>
+          </Link>
+        </div>
+
+      </div>
+    </header>
   );
 }

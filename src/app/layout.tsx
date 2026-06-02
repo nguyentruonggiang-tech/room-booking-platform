@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
-import AppProvider from "@/components/providers/AppProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,21 +14,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Room Booking Platform",
-  description: "Airbnb clone mini with Next.js and Ant Design",
+  description: "Airbnb clone mini with Next.js and Tailwind CSS",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="antialiased">
-        <AntdRegistry>
-          <AppProvider>{children}</AppProvider>
-        </AntdRegistry>
-      </body>
+    <html lang="vi" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

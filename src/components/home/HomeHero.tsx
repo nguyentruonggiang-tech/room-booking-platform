@@ -1,112 +1,71 @@
 "use client";
 
-import { Button, Col, Grid, Row, Space, Typography } from "antd";
-import { CalendarOutlined, HomeOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
+import { Calendar, Home, Search, User } from "lucide-react";
 import HomeContainer from "@/components/layout/home/HomeContainer";
 
-const { Text, Title } = Typography;
-const { useBreakpoint } = Grid;
-
 export default function HomeHero() {
-  const screens = useBreakpoint();
-  const isMobile = !screens.md;
-
   return (
     <section
+      className="min-h-[500px] bg-cover bg-center md:min-h-[560px]"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(6, 18, 34, 0.55), rgba(6, 18, 34, 0.45)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=80')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: isMobile ? 500 : 560,
+          "linear-gradient(rgba(6,18,34,0.55), rgba(6,18,34,0.45)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=80')",
       }}
     >
-      <div style={{ paddingBlock: isMobile ? "42px 0 24px" : "72px 0 42px" }}>
-        <HomeContainer>
-          <div style={{ textAlign: "center", marginBottom: isMobile ? 22 : 28 }}>
-            <Title
-              level={isMobile ? 2 : 1}
-              style={{
-                color: "#ffffff",
-                marginBottom: 8,
-                fontSize: isMobile ? 40 : 64,
-                lineHeight: 1.03,
-                fontWeight: 700,
-              }}
-            >
-              Khám phá nơi ở
-              <br />
-              <span style={{ color: "#22d3c5" }}>tuyệt vời</span> tại Việt Nam
-            </Title>
-            <Text style={{ color: "rgba(255,255,255,0.88)", fontSize: isMobile ? 14 : 19 }}>
-              Hàng nghìn căn hộ, biệt thự và homestay độc đáo đang chờ đón bạn
-            </Text>
-          </div>
+      <HomeContainer className="py-10 md:py-[72px]">
 
-          <div
-            style={{
-              width: "100%",
-              borderRadius: isMobile ? 18 : 999,
-              overflow: "hidden",
-              border: "1px solid rgba(255,255,255,0.2)",
-              background: "rgba(12, 17, 26, 0.92)",
-            }}
-          >
-            <Row align="middle" gutter={0} wrap={isMobile}>
-                <Col flex="1 1 0" style={{ padding: "11px 16px", borderRight: "1px solid rgba(255,255,255,0.14)" }}>
-                  <Text style={{ color: "rgba(255,255,255,0.66)", fontSize: 10, display: "block", letterSpacing: 0.8 }}>
-                    ĐỊA ĐIỂM
-                  </Text>
-                  <Space size={6}>
-                    <HomeOutlined style={{ color: "#22d3c5" }} />
-                    <Text style={{ color: "#ffffff" }}>Bạn muốn đi đâu?</Text>
-                  </Space>
-                </Col>
-                <Col flex="1 1 0" style={{ padding: "11px 16px", borderRight: "1px solid rgba(255,255,255,0.14)" }}>
-                  <Text style={{ color: "rgba(255,255,255,0.66)", fontSize: 10, display: "block", letterSpacing: 0.8 }}>
-                    NHẬN PHÒNG
-                  </Text>
-                  <Space size={6}>
-                    <CalendarOutlined style={{ color: "#22d3c5" }} />
-                    <Text style={{ color: "#ffffff" }}>dd/mm/yyyy</Text>
-                  </Space>
-                </Col>
-                <Col flex="1 1 0" style={{ padding: "11px 16px", borderRight: "1px solid rgba(255,255,255,0.14)" }}>
-                  <Text style={{ color: "rgba(255,255,255,0.66)", fontSize: 10, display: "block", letterSpacing: 0.8 }}>
-                    TRẢ PHÒNG
-                  </Text>
-                  <Space size={6}>
-                    <CalendarOutlined style={{ color: "#22d3c5" }} />
-                    <Text style={{ color: "#ffffff" }}>dd/mm/yyyy</Text>
-                  </Space>
-                </Col>
-                <Col flex="1 1 0" style={{ padding: "11px 16px" }}>
-                  <Text style={{ color: "rgba(255,255,255,0.66)", fontSize: 10, display: "block", letterSpacing: 0.8 }}>
-                    KHÁCH
-                  </Text>
-                  <Space size={6}>
-                    <UserOutlined style={{ color: "#22d3c5" }} />
-                    <Text style={{ color: "#ffffff" }}>1 khách</Text>
-                  </Space>
-                </Col>
-                <Col style={{ padding: isMobile ? "0 0 12px 12px" : 0 }}>
-                  <Button
-                    type="primary"
-                    shape="circle"
-                    icon={<SearchOutlined />}
-                    style={{
-                      width: 52,
-                      height: 52,
-                      marginRight: isMobile ? 0 : 8,
-                      background: "#15b8a6",
-                      borderColor: "#15b8a6",
-                    }}
-                  />
-                </Col>
-            </Row>
+        {/* Heading */}
+        <div className="mb-6 text-center md:mb-7">
+          <h1 className="mb-2 text-[40px] font-bold leading-[1.03] text-white md:text-[64px]">
+            Khám phá nơi ở
+            <br />
+            <span className="text-brand">tuyệt vời</span> tại Việt Nam
+          </h1>
+          <p className="text-sm text-white/88 md:text-[19px]">
+            Hàng nghìn căn hộ, biệt thự và homestay độc đáo đang chờ đón bạn
+          </p>
+        </div>
+
+        {/* Search bar */}
+        <div className="overflow-hidden rounded-[18px] border border-white/20 bg-[rgba(12,17,26,0.92)] md:rounded-full">
+          <div className="flex flex-wrap items-center md:flex-nowrap">
+            <div className="flex flex-1 flex-col border-b border-white/14 px-4 py-3 md:border-b-0 md:border-r">
+              <span className="text-[10px] uppercase tracking-[0.8px] text-white/66">Địa điểm</span>
+              <div className="flex items-center gap-1.5">
+                <Home size={14} className="text-brand" />
+                <span className="text-sm text-white">Bạn muốn đi đâu?</span>
+              </div>
+            </div>
+            <div className="flex flex-1 flex-col border-b border-white/14 px-4 py-3 md:border-b-0 md:border-r">
+              <span className="text-[10px] uppercase tracking-[0.8px] text-white/66">Nhận phòng</span>
+              <div className="flex items-center gap-1.5">
+                <Calendar size={14} className="text-brand" />
+                <span className="text-sm text-white">dd/mm/yyyy</span>
+              </div>
+            </div>
+            <div className="flex flex-1 flex-col border-b border-white/14 px-4 py-3 md:border-b-0 md:border-r">
+              <span className="text-[10px] uppercase tracking-[0.8px] text-white/66">Trả phòng</span>
+              <div className="flex items-center gap-1.5">
+                <Calendar size={14} className="text-brand" />
+                <span className="text-sm text-white">dd/mm/yyyy</span>
+              </div>
+            </div>
+            <div className="flex flex-1 flex-col px-4 py-3 md:border-r border-white/14">
+              <span className="text-[10px] uppercase tracking-[0.8px] text-white/66">Khách</span>
+              <div className="flex items-center gap-1.5">
+                <User size={14} className="text-brand" />
+                <span className="text-sm text-white">1 khách</span>
+              </div>
+            </div>
+            <div className="flex justify-end px-3 pb-3 md:py-0">
+              <button className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-brand-dark text-white transition-colors hover:bg-brand">
+                <Search size={20} />
+              </button>
+            </div>
           </div>
-        </HomeContainer>
-      </div>
+        </div>
+
+      </HomeContainer>
     </section>
   );
 }
