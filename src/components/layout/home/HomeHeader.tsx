@@ -1,16 +1,54 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Home, Moon, Search, User } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
+import { Home, LogOut, Moon, Search, User } from "lucide-react";
+import { toast } from "sonner";
 import { homeNavList } from "./home-layout.constants";
+import { useAuthStore } from "@/store/auth.store";
+
+function getInitials(name: string): string {
+  const parts = name.trim().split(" ");
+  if (parts.length === 1) return parts[0][0].toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function UserAvatar({ name, avatar }: { name: string; avatar?: string }) {
+  const [imgError, setImgError] = useState(false);
+
+  if (avatar && !imgError) {
+    return (
+      <img
+        src={avatar}
+        alt={name}
+        className="h-9 w-9 rounded-full object-cover border border-border-dark-soft"
+        onError={() => setImgError(true)}
+      />
+    );
+  }
+  return (
+    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">
+      {getInitials(name)}
+    </div>
+  );
+}
 
 export default function HomeHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const isHome = pathname === "/";
+  const { user, token, clearAuth } = useAuthStore();
+  const isLoggedIn = !!token;
+
+  const handleLogout = () => {
+    clearAuth();
+    toast.success("Đăng xuất thành công!");
+    router.push("/dang-nhap");
+  };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border-dark bg-surface-dark">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border-dark bg-surface-dark text-white">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-8">
 
         {/* Logo */}
@@ -21,7 +59,7 @@ export default function HomeHeader() {
           <span className="text-xl font-semibold text-brand">AirBnb</span>
         </Link>
 
-        {/* Nav (chỉ hiển thị ở trang chủ) */}
+        {/* Nav */}
         {isHome && (
           <nav className="hidden items-center gap-8 md:flex">
             {homeNavList.map((item, index) => (
@@ -54,11 +92,29 @@ export default function HomeHeader() {
           <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-brand">
             <Moon size={16} />
           </button>
-          <Link href="/dang-nhap">
-            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-brand">
-              <User size={16} />
-            </button>
-          </Link>
+
+          {isLoggedIn && user ? (
+            <div className="flex items-center gap-2">
+              <Link href="/ho-so" className="flex items-center gap-2">
+                <UserAvatar name={user.name} avatar={user.avatar} />
+                <span className="hidden text-sm font-medium text-white/90 hover:text-brand transition-colors md:block">
+                  {user.name}
+                </span>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-red-400"
+              >
+                <LogOut size={16} />
+              </button>
+            </div>
+          ) : (
+            <Link href="/dang-nhap">
+              <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-brand">
+                <User size={16} />
+              </button>
+            </Link>
+          )}
         </div>
 
       </div>

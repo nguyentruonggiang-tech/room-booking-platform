@@ -13,7 +13,7 @@ import {
   type LoginFormValues,
 } from "@/features/auth/schemas/auth.schema";
 import { authService } from "@/features/auth/services/auth.service";
-import { storage } from "@/utils/storage";
+import { useAuthStore } from "@/store/auth.store";
 import { FormField, inputCls } from "./FormField";
 
 const BG_IMAGE_LOGIN =
@@ -21,6 +21,7 @@ const BG_IMAGE_LOGIN =
 
 export default function LoginForm() {
   const router = useRouter();
+  const setAuth = useAuthStore((s) => s.setAuth);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
@@ -35,8 +36,8 @@ export default function LoginForm() {
   const onSubmit = async (values: LoginFormValues) => {
     setSubmitError(null);
     try {
-      const { accessToken, user } = await authService.login(toLoginRequestBody(values));
-      storage.saveToken(accessToken);
+      const { token, user } = await authService.login(toLoginRequestBody(values));
+      setAuth(user, token);
       toast.success("Đăng nhập thành công!");
       setTimeout(() => {
         router.push(user.role === "ADMIN" ? "/admin" : "/");

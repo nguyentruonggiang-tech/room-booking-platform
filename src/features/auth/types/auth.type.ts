@@ -7,6 +7,7 @@ export type ThongTinNguoiDung = {
   birthday: string;
   gender: boolean;
   role?: string;
+  avatar?: string; // cần confirm từ response thực tế, không có trong swagger
 };
 
 export type RegisterRequestBody = Pick<
@@ -20,7 +21,6 @@ export type LoginRequestBody = {
 };
 
 export type LoginResponse = {
-  accessToken: string;
-  refreshToken: string;
+  token: string;
   user: ThongTinNguoiDung;
 };
