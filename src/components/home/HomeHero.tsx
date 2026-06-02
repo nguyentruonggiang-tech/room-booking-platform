@@ -1,22 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import { Calendar, Search, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import HomeContainer from "@/components/layout/home/HomeContainer";
 import LocationSearch from "@/features/home/components/LocationSearch";
-import type { ViTriViewModel } from "@/features/locations/types/location.type";
+import { useSearchStore } from "@/store/search.store";
 
 export default function HomeHero() {
   const router = useRouter();
-  const [selectedLocation, setSelectedLocation] = useState<ViTriViewModel | null>(null);
-  const [ngayDen, setNgayDen] = useState("");
-  const [ngayDi, setNgayDi] = useState("");
-  const [soKhach, setSoKhach] = useState(1);
+  const { selectedLocation, ngayDen, ngayDi, soKhach, setSelectedLocation, setNgayDen, setNgayDi, setSoKhach } = useSearchStore();
 
   function handleSearch() {
     if (!selectedLocation) return;
-    router.push(`/phong-thue?maViTri=${selectedLocation.id}`);
+    router.push(`/${selectedLocation.id}`);
   }
 
   return (
@@ -76,14 +72,14 @@ export default function HomeHero() {
               <div className="flex items-center gap-2">
                 <User size={14} className="shrink-0 text-brand" />
                 <button
-                  onClick={() => setSoKhach((n) => Math.max(1, n - 1))}
+                  onClick={() => setSoKhach(Math.max(1, soKhach - 1))}
                   className="text-white/60 transition-colors hover:text-white"
                 >
                   −
                 </button>
                 <span className="min-w-[20px] text-center text-sm text-white">{soKhach}</span>
                 <button
-                  onClick={() => setSoKhach((n) => n + 1)}
+                  onClick={() => setSoKhach(soKhach + 1)}
                   className="text-white/60 transition-colors hover:text-white"
                 >
                   +
