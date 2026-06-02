@@ -9,4 +9,7 @@ export const locationService = {
         params: { pageIndex, pageSize, keyword },
       })
       .then((res) => res.data.content),
+
+  getById: (id: number): Promise<ViTriViewModel> =>
+    axiosInstance.get(`${API_ENDPOINTS.locations}/${id}`).then((res) => res.data.content),
 };
