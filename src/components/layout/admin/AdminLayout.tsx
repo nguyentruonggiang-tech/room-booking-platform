@@ -1,29 +1,23 @@
-"use client";
-
 import type { PropsWithChildren } from "react";
-import { ConfigProvider, Layout } from "antd";
-import { adminTheme } from "./admin-theme";
 import AdminSidebar from "./AdminSidebar";
 import AdminHeader from "./AdminHeader";
 import AdminContent from "./AdminContent";
 import AdminFooter from "./AdminFooter";
 
-const { Sider } = Layout;
-
 export default function AdminLayout({ children }: PropsWithChildren) {
   return (
-    <ConfigProvider theme={adminTheme}>
-      <Layout style={{ minHeight: "100vh" }}>
-        <Sider width={240}>
-          <AdminSidebar />
-        </Sider>
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <aside className="fixed inset-y-0 left-0 z-40 w-60 bg-admin-sidebar">
+        <AdminSidebar />
+      </aside>
 
-        <Layout>
-          <AdminHeader />
-          <AdminContent>{children}</AdminContent>
-          <AdminFooter />
-        </Layout>
-      </Layout>
-    </ConfigProvider>
+      {/* Main area */}
+      <div className="ml-60 flex min-h-screen flex-1 flex-col">
+        <AdminHeader />
+        <AdminContent>{children}</AdminContent>
+        <AdminFooter />
+      </div>
+    </div>
   );
 }

@@ -2,87 +2,70 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AppstoreOutlined, QuestionCircleOutlined, SettingOutlined } from "@ant-design/icons";
-import { Menu, Typography, theme } from "antd";
+import { HelpCircle, LayoutGrid, Settings } from "lucide-react";
 import { adminMenuList } from "./admin-menu";
-import { ADMIN_HEADER_HEIGHT } from "./admin-theme";
-
-const { Text } = Typography;
 
 const bottomMenuList = [
-  { key: "settings", icon: <SettingOutlined />, label: "Cài đặt" },
-  { key: "support", icon: <QuestionCircleOutlined />, label: "Hỗ trợ" },
+  { path: "#", label: "Cài đặt", icon: Settings },
+  { path: "#", label: "Hỗ trợ", icon: HelpCircle },
 ];
 
 export default function AdminSidebar() {
   const pathname = usePathname();
-  const { token } = theme.useToken();
-
-  const activeMenu = adminMenuList.find((menu) => pathname.startsWith(menu.path));
-
-  const menuItems = adminMenuList.map((menu) => ({
-    key: menu.path,
-    icon: menu.icon,
-    label: <Link href={menu.path}>{menu.label}</Link>,
-  }));
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-          height: ADMIN_HEADER_HEIGHT,
-          paddingInline: 20,
-          borderBottom: `1px solid ${token.colorBorderSecondary}`,
-        }}
-      >
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: token.borderRadius,
-            background: token.colorPrimary,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#ffffff",
-            fontSize: 18,
-          }}
-        >
-          <AppstoreOutlined />
+    <div className="flex h-full flex-col">
+
+      {/* Brand */}
+      <div className="flex h-16 items-center gap-3 border-b border-admin-border px-5">
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-admin-primary">
+          <LayoutGrid size={18} className="text-white" />
         </div>
-        <div>
-          <Text style={{ color: token.colorText, fontSize: 16, fontWeight: 700, display: "block" }}>
-            Quản trị
-          </Text>
-          <Text style={{ color: token.colorTextTertiary, fontSize: 11, letterSpacing: 1 }}>
-            HỆ THỐNG ĐẶT PHÒNG
-          </Text>
+        <div className="flex flex-col">
+          <span className="text-base font-bold leading-tight text-white">Quản trị</span>
+          <span className="text-[11px] uppercase tracking-widest text-white/40">Hệ thống đặt phòng</span>
         </div>
       </div>
 
-      <Menu
-        mode="inline"
-        theme="dark"
-        selectedKeys={activeMenu ? [activeMenu.path] : []}
-        items={menuItems}
-        style={{ background: "transparent", borderInlineEnd: 0, flex: 1 }}
-      />
+      {/* Main nav */}
+      <nav className="flex-1 px-3 py-4">
+        {adminMenuList.map((item) => {
+          const isActive = pathname.startsWith(item.path);
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.path}
+              href={item.path}
+              className={`mb-1 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                isActive
+                  ? "bg-admin-primary text-white"
+                  : "text-white/60 hover:bg-white/5 hover:text-white"
+              }`}
+            >
+              <Icon size={16} />
+              {item.label}
+            </Link>
+          );
+        })}
+      </nav>
 
-      <Menu
-        mode="inline"
-        theme="dark"
-        selectable={false}
-        items={bottomMenuList}
-        style={{
-          background: "transparent",
-          borderInlineEnd: 0,
-          borderTop: `1px solid ${token.colorBorderSecondary}`,
-          paddingBlock: 12,
-        }}
-      />
+      {/* Bottom nav */}
+      <div className="border-t border-admin-border px-3 py-3">
+        {bottomMenuList.map((item) => {
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.path}
+              href={item.path}
+              className="mb-1 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white"
+            >
+              <Icon size={16} />
+              {item.label}
+            </Link>
+          );
+        })}
+      </div>
+
     </div>
   );
 }
