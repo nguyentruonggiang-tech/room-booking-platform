@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
 
 const FALLBACK_IMG = "https://placehold.co/192x160/f3f4f6/9ca3af?text=No+Image";
@@ -10,7 +11,7 @@ type Props = {
 
 export default function RoomCard({ room }: Props) {
   return (
-    <div className="flex cursor-pointer gap-4 rounded-xl border border-gray-200 p-3 transition-shadow hover:shadow-md">
+    <Link href={`/phong-thue/${room.id}`} className="flex gap-4 rounded-xl border border-gray-200 p-3 transition-shadow hover:shadow-md">
       <img
         src={room.hinhAnh}
         alt={room.tenPhong}
@@ -26,9 +27,12 @@ export default function RoomCard({ room }: Props) {
           <p className="mt-1 line-clamp-2 text-xs text-gray-400">{room.moTa}</p>
         </div>
         <p className="text-sm font-semibold text-gray-900 text-right">
-          {room.giaTien.toLocaleString("vi-VN")}₫<span className="font-normal text-gray-500"> / đêm</span>
+          {room.giaTien != null
+            ? <>{room.giaTien.toLocaleString("vi-VN")}₫<span className="font-normal text-gray-500"> / đêm</span></>
+            : <span className="text-gray-500">Liên hệ</span>
+          }
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
