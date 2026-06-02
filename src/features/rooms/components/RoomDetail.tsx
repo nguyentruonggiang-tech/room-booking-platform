@@ -71,7 +71,7 @@ export default function RoomDetail({ room, location }: Props) {
       </div>
 
       {/* Comments — full width */}
-      <CommentSection />
+      <CommentSection maPhong={room.id} />
     </div>
   );
 }
