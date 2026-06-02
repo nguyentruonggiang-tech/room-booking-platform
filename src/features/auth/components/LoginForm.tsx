@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
@@ -21,6 +21,8 @@ const BG_IMAGE_LOGIN =
 
 export default function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect");
   const setAuth = useAuthStore((s) => s.setAuth);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -40,7 +42,11 @@ export default function LoginForm() {
       setAuth(user, token);
       toast.success("Đăng nhập thành công!");
       setTimeout(() => {
-        router.push(user.role === "ADMIN" ? "/admin" : "/");
+        if (user.role === "ADMIN") {
+          router.push("/admin");
+        } else {
+          router.push(redirectTo || "/");
+        }
       }, 1000);
     } catch (error) {
       if (axios.isAxiosError(error)) {

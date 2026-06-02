@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Star } from "lucide-react";
 import { toast } from "sonner";
 import { useAuthStore } from "@/store/auth.store";
@@ -26,6 +27,8 @@ type Props = {
 };
 
 export default function BookingBox({ room }: Props) {
+  const router = useRouter();
+  const pathname = usePathname();
   const { user, token } = useAuthStore();
   const { ngayDen, ngayDi, soKhach, setNgayDen, setNgayDi, setSoKhach } = useSearchStore();
   const [loading, setLoading] = useState(false);
@@ -39,6 +42,7 @@ export default function BookingBox({ room }: Props) {
   async function handleBook() {
     if (!token || !user?.id) {
       toast.error("Vui lòng đăng nhập để đặt phòng");
+      router.push(`/dang-nhap?redirect=${encodeURIComponent(pathname)}`);
       return;
     }
     const validated = bookingSchema.safeParse({ ngayDen, ngayDi, soLuongKhach: soKhach });
