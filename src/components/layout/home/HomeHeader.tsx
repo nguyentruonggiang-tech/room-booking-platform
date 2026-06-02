@@ -48,7 +48,7 @@ export default function HomeHeader() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border-dark bg-surface-dark">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border-dark bg-surface-dark text-white">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-8">
 
         {/* Logo */}
