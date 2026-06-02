@@ -1,10 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { Star } from "lucide-react";
+import { toast } from "sonner";
+import { useAuthStore } from "@/store/auth.store";
 import { useSearchStore } from "@/store/search.store";
+import { bookingSchema } from "@/features/bookings/schemas/booking.schema";
+import { bookingService } from "@/features/bookings/services/booking.service";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
 
-const SERVICE_FEE_RATE = 0.14;
+const SERVICE_FEE = 350000;
 
 function calcNights(from: string, to: string): number {
   if (!from || !to) return 0;
@@ -12,8 +17,8 @@ function calcNights(from: string, to: string): number {
   return Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
 }
 
-function formatVND(amount: number | null): string {
-  return (amount ?? 0).toLocaleString("vi-VN") + "₫";
+function formatVND(amount: number): string {
+  return amount.toLocaleString("vi-VN") + "₫";
 }
 
 type Props = {
@@ -21,13 +26,45 @@ type Props = {
 };
 
 export default function BookingBox({ room }: Props) {
+  const { user, token } = useAuthStore();
   const { ngayDen, ngayDi, soKhach, setNgayDen, setNgayDi, setSoKhach } = useSearchStore();
+  const [loading, setLoading] = useState(false);
 
   const nights = calcNights(ngayDen, ngayDi);
-  const pricePerNight = room.giaTien ?? 0;
-  const subtotal = nights * pricePerNight;
-  const serviceFee = Math.round(subtotal * SERVICE_FEE_RATE);
+  const nightlyPrice = room.giaTien ?? 0;
+  const subtotal = nights * nightlyPrice;
+  const serviceFee = nights > 0 ? SERVICE_FEE : 0;
   const total = subtotal + serviceFee;
+
+  async function handleBook() {
+    if (!token || !user?.id) {
+      toast.error("Vui lòng đăng nhập để đặt phòng");
+      return;
+    }
+    const validated = bookingSchema.safeParse({ ngayDen, ngayDi, soLuongKhach: soKhach });
+    if (!validated.success) {
+      toast.error(validated.error.issues[0].message);
+      return;
+    }
+    setLoading(true);
+    try {
+      await bookingService.create(
+        {
+          maPhong: room.id,
+          ngayDen: new Date(ngayDen).toISOString(),
+          ngayDi: new Date(ngayDi).toISOString(),
+          soLuongKhach: soKhach,
+          maNguoiDung: user.id!,
+        },
+        token,
+      );
+      toast.success("Đặt phòng thành công!");
+    } catch {
+      toast.error("Đặt phòng thất bại. Vui lòng thử lại.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="sticky top-24 rounded-2xl border border-gray-200 p-6 shadow-lg">
@@ -35,7 +72,7 @@ export default function BookingBox({ room }: Props) {
       {/* Giá + Rating */}
       <div className="flex items-center justify-between">
         <p className="text-xl font-bold text-gray-900">
-          {formatVND(pricePerNight)}
+          {formatVND(nightlyPrice)}
           <span className="text-base font-normal text-gray-500"> / đêm</span>
         </p>
         <div className="flex items-center gap-1 text-sm">
@@ -95,29 +132,35 @@ export default function BookingBox({ room }: Props) {
       {/* Nút đặt phòng */}
       <button
         type="button"
-        className="mt-4 w-full rounded-xl bg-brand py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+        onClick={handleBook}
+        disabled={loading}
+        className="mt-4 w-full rounded-xl bg-brand py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Đặt phòng
+        {loading ? "Đang xử lý..." : "Đặt phòng"}
       </button>
       <p className="mt-2 text-center text-xs text-gray-500">Bạn vẫn chưa bị trừ tiền</p>
 
       {/* Breakdown giá */}
-      {nights > 0 && (
-        <div className="mt-4 flex flex-col gap-3 border-t border-gray-100 pt-4 text-sm">
-          <div className="flex justify-between text-gray-700">
-            <span className="underline">{formatVND(pricePerNight)} × {nights} đêm</span>
-            <span>{formatVND(subtotal)}</span>
-          </div>
-          <div className="flex justify-between text-gray-700">
-            <span className="underline">Phí dịch vụ</span>
-            <span>{formatVND(serviceFee)}</span>
-          </div>
-          <div className="flex justify-between border-t border-gray-100 pt-3 font-semibold text-gray-900">
-            <span>Tổng</span>
-            <span>{formatVND(total)}</span>
-          </div>
-        </div>
-      )}
+      <div className="mt-4 flex flex-col gap-3 border-t border-gray-100 pt-4 text-sm">
+        {nights > 0 ? (
+          <>
+            <div className="flex justify-between text-gray-700">
+              <span>{formatVND(nightlyPrice)} × {nights} đêm</span>
+              <span>{formatVND(subtotal)}</span>
+            </div>
+            <div className="flex justify-between text-gray-700">
+              <span>Phí dịch vụ</span>
+              <span>{formatVND(serviceFee)}</span>
+            </div>
+            <div className="flex justify-between border-t border-gray-100 pt-3 font-semibold text-gray-900">
+              <span>Tổng</span>
+              <span>{formatVND(total)}</span>
+            </div>
+          </>
+        ) : (
+          <p className="text-center text-xs text-gray-400">Chọn ngày để xem tổng giá</p>
+        )}
+      </div>
     </div>
   );
 }
