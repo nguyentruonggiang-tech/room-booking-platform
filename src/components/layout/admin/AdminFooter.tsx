@@ -1,40 +1,16 @@
-"use client";
-
-import { Layout, Space, Typography, theme } from "antd";
-
-const { Footer } = Layout;
-const { Text, Link } = Typography;
-
 export default function AdminFooter() {
-  const { token } = theme.useToken();
-
   return (
-    <Footer
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: 16,
-        flexWrap: "wrap",
-        paddingBlock: 16,
-        borderTop: `1px solid ${token.colorBorderSecondary}`,
-      }}
-    >
-      <Text type="secondary" style={{ fontSize: 13 }}>
+    <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-admin-border bg-admin-header px-6 py-4">
+      <span className="text-[13px] text-white/50">
         © 2026 Room Booking Admin. Hệ thống quản trị đặt phòng.
-      </Text>
-
-      <Space size="large">
-        <Link type="secondary" style={{ fontSize: 13 }}>
-          Chính sách
-        </Link>
-        <Link type="secondary" style={{ fontSize: 13 }}>
-          Điều khoản
-        </Link>
-        <Link type="secondary" style={{ fontSize: 13 }}>
-          API
-        </Link>
-      </Space>
-    </Footer>
+      </span>
+      <div className="flex items-center gap-6">
+        {["Chính sách", "Điều khoản", "API"].map((link) => (
+          <a key={link} href="#" className="text-[13px] text-white/50 transition-colors hover:text-white/80">
+            {link}
+          </a>
+        ))}
+      </div>
+    </footer>
   );
 }

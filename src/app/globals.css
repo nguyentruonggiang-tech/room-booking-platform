@@ -1,10 +1,21 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "tailwindcss";
 
-html {
-  min-height: 100%;
+@theme {
+  /* Home layout */
+  --color-brand: #22d3c5;
+  --color-brand-dark: #0d9488;
+  --color-surface-dark: #15181d;
+  --color-surface-elevated: #1f2530;
+  --color-border-dark: #242a33;
+  --color-border-dark-soft: #2b3340;
+  --color-border-light: #ebebeb;
+
+  /* Admin layout */
+  --color-admin-sidebar: #0b0f19;
+  --color-admin-header: #141a28;
+  --color-admin-content: #f5f7fb;
+  --color-admin-border: #1f2638;
+  --color-admin-primary: #6366f1;
 }
 
 html,
@@ -16,17 +27,8 @@ body {
 
 body {
   margin: 0;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {

@@ -1,22 +1,11 @@
-"use client";
+import type { PropsWithChildren } from "react";
 
-import type { CSSProperties, PropsWithChildren } from "react";
-import { Col, Row } from "antd";
-import styles from "./home-layout.module.css";
+type Props = PropsWithChildren<{ className?: string }>;
 
-export type HomeContainerProps = PropsWithChildren<{
-  className?: string;
-  style?: CSSProperties;
-}>;
-
-export default function HomeContainer({ children, className, style }: HomeContainerProps) {
+export default function HomeContainer({ children, className = "" }: Props) {
   return (
-    <div className={[styles.homeContainer, className].filter(Boolean).join(" ")} style={style}>
-      <Row justify="center">
-        <Col xs={24} lg={16}>
-          {children}
-        </Col>
-      </Row>
+    <div className={`mx-auto w-full max-w-6xl px-4 sm:px-8 ${className}`}>
+      {children}
     </div>
   );
 }
