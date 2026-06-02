@@ -14,6 +14,7 @@ import {
 } from "@/features/auth/schemas/auth.schema";
 import { authService } from "@/features/auth/services/auth.service";
 import { storage } from "@/utils/storage";
+import { FormField, inputCls } from "./FormField";
 
 const BG_IMAGE_LOGIN =
   "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80";
@@ -69,13 +70,13 @@ export default function LoginForm() {
           )}
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-            <Field label="Email" error={errors.email?.message}>
+            <FormField label="Email" error={errors.email?.message}>
               <input {...register("email")} type="email" placeholder="Nhập email" autoComplete="email" className={inputCls(!!errors.email)} />
-            </Field>
+            </FormField>
 
-            <Field label="Mật khẩu" error={errors.password?.message}>
+            <FormField label="Mật khẩu" error={errors.password?.message}>
               <input {...register("password")} type="password" placeholder="Nhập mật khẩu" autoComplete="current-password" className={inputCls(!!errors.password)} />
-            </Field>
+            </FormField>
 
             <div className="flex items-center gap-3 pt-2">
               <button
@@ -99,18 +100,3 @@ export default function LoginForm() {
   );
 }
 
-function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <label className="mb-1 block text-sm font-medium text-gray-700">{label}</label>
-      {children}
-      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
-    </div>
-  );
-}
-
-function inputCls(hasError: boolean) {
-  return `w-full rounded-lg border px-3 py-2.5 text-sm outline-none transition-colors focus:ring-2 focus:ring-brand/30 ${
-    hasError ? "border-red-400 bg-red-50" : "border-gray-300 bg-white focus:border-brand"
-  }`;
-}
