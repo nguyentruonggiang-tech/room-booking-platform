@@ -10,4 +10,7 @@ export const roomService = {
     axiosInstance
       .get(`${API_ENDPOINTS.rooms}/lay-phong-theo-vi-tri`, { params: { maViTri } })
       .then((res) => res.data.content),
+
+  getById: (id: number): Promise<PhongViewModel> =>
+    axiosInstance.get(`${API_ENDPOINTS.rooms}/${id}`).then((res) => res.data.content),
 };
