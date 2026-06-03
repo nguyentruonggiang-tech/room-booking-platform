@@ -1,3 +1,10 @@
-export default function AdminUsersPage() {
-  return <main>Admin Nguoi Dung Page</main>;
+import { Suspense } from "react";
+import UsersContent from "@/features/admin/users/components/UsersContent";
+
+export default function UsersPage() {
+  return (
+    <Suspense>
+      <UsersContent />
+    </Suspense>
+  );
 }

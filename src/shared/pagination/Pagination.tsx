@@ -8,12 +8,13 @@ type PaginationProps = {
   href: (page: number) => string;
   siblingCount?: number;
   boundaryCount?: number;
+  activeClass?: string;
 };
 
 const linkClass =
   "inline-flex h-9 min-w-9 items-center justify-center rounded-lg border border-gray-300 px-2 text-sm text-gray-700 transition-colors hover:border-gray-900 hover:bg-gray-50";
 
-const activePageClass =
+const defaultActiveClass =
   "inline-flex h-9 min-w-9 items-center justify-center rounded-lg border border-brand bg-brand px-2 text-sm font-medium text-white";
 
 const disabledClass =
@@ -25,6 +26,7 @@ export default function Pagination({
   href,
   siblingCount,
   boundaryCount,
+  activeClass = defaultActiveClass,
 }: PaginationProps) {
   if (totalPages <= 1) {
     return null;
@@ -72,7 +74,7 @@ export default function Pagination({
           return (
             <li key={item.page}>
               {isActive ? (
-                <span className={activePageClass} aria-current="page">
+                <span className={activeClass} aria-current="page">
                   {item.page}
                 </span>
               ) : (
