@@ -41,13 +41,7 @@ export default function LoginForm() {
       const { token, user } = await authService.login(toLoginRequestBody(values));
       setAuth(user, token);
       toast.success("Đăng nhập thành công!");
-      setTimeout(() => {
-        if (user.role === "ADMIN") {
-          router.push("/admin");
-        } else {
-          router.push(redirectTo || "/");
-        }
-      }, 1000);
+      router.push(user.role === "ADMIN" ? "/admin" : (redirectTo || "/"));
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setSubmitError(error.response?.data?.content || error.response?.data?.message || "Đăng nhập thất bại. Vui lòng thử lại.");
