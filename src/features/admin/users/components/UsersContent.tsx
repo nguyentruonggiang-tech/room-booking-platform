@@ -5,9 +5,11 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Search, UserPlus } from "lucide-react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { adminUserService } from "@/features/admin/users/services/admin-user.service";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
 import Pagination from "@/shared/pagination/Pagination";
 import UserTable from "./UserTable";
-import UserFormModal from "./UserFormModal";
+import UserModal from "./UserModal";
 import type { AdminUser } from "../types/admin-user.type";
 
 const PAGE_SIZE = 10;
@@ -26,6 +28,7 @@ export default function UsersContent() {
   const [error, setError] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<AdminUser | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const debouncedKeyword = useDebounce(keyword);
 
@@ -44,7 +47,7 @@ export default function UsersContent() {
       })
       .catch(() => setError("Không thể tải danh sách người dùng."))
       .finally(() => setLoading(false));
-  }, [debouncedKeyword, pageIndex]);
+  }, [debouncedKeyword, pageIndex, refreshKey]);
 
   const totalPage = Math.ceil(totalRow / PAGE_SIZE);
   const from = totalRow === 0 ? 0 : (pageIndex - 1) * PAGE_SIZE + 1;
@@ -60,17 +63,29 @@ export default function UsersContent() {
     setModalOpen(true);
   }
 
+  async function handleDelete(user: AdminUser) {
+    const { isConfirmed } = await Swal.fire({
+      title: "Xóa người dùng?",
+      text: `"${user.name}" sẽ bị xóa vĩnh viễn.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Xóa",
+      cancelButtonText: "Hủy",
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6b7280",
+    });
+    if (!isConfirmed) return;
+    try {
+      await adminUserService.remove(user.id);
+      toast.success("Xóa người dùng thành công");
+      handleSuccess();
+    } catch {
+      toast.error("Xóa thất bại");
+    }
+  }
+
   function handleSuccess() {
-    setLoading(true);
-    setError(null);
-    adminUserService
-      .getPaged(pageIndex, PAGE_SIZE, debouncedKeyword)
-      .then((res) => {
-        setUsers(res.data);
-        setTotalRow(res.totalRow);
-      })
-      .catch(() => setError("Không thể tải danh sách người dùng."))
-      .finally(() => setLoading(false));
+    setRefreshKey((k) => k + 1);
   }
 
   return (
@@ -102,9 +117,9 @@ export default function UsersContent() {
         />
       </div>
 
-      <UserTable users={users} loading={loading} error={error} onEdit={openEdit} />
+      <UserTable users={users} loading={loading} error={error} onEdit={openEdit} onDelete={handleDelete} />
 
-      <UserFormModal
+      <UserModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         onSuccess={handleSuccess}

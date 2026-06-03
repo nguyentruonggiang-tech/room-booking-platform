@@ -26,7 +26,7 @@ function FieldError({ message }: { message?: string }) {
 const inputClass =
   "w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-admin-primary focus:ring-1 focus:ring-admin-primary";
 
-export default function UserFormModal({ open, onClose, editTarget, onSuccess }: Props) {
+export default function UserModal({ open, onClose, editTarget, onSuccess }: Props) {
   const isEdit = editTarget !== null;
 
   const {

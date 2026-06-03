@@ -7,6 +7,7 @@ type Props = {
   loading: boolean;
   error: string | null;
   onEdit: (user: AdminUser) => void;
+  onDelete: (user: AdminUser) => void;
 };
 
 const AVATAR_COLORS = [
@@ -57,7 +58,7 @@ function TableHead() {
   );
 }
 
-export default function UserTable({ users, loading, error, onEdit }: Props) {
+export default function UserTable({ users, loading, error, onEdit, onDelete }: Props) {
   if (loading) return <TableSkeleton />;
 
   if (error)
@@ -113,6 +114,7 @@ export default function UserTable({ users, loading, error, onEdit }: Props) {
                   </button>
                   <button
                     title="Xóa"
+                    onClick={() => onDelete(user)}
                     className="rounded-lg p-2 text-gray-400 hover:bg-red-50 hover:text-red-500"
                   >
                     <Trash2 className="h-4 w-4" />

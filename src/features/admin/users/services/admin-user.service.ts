@@ -20,4 +20,7 @@ export const adminUserService = {
 
   update: (id: number, body: UserUpdateBody): Promise<AdminUser> =>
     axiosInstance.put(`${API_ENDPOINTS.users}/${id}`, body).then((res) => res.data.content),
+
+  remove: (id: number): Promise<void> =>
+    axiosInstance.delete(API_ENDPOINTS.users, { params: { id } }).then((res) => res.data.content),
 };
