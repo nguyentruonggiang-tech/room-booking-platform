@@ -170,7 +170,7 @@ export default function RoomModal({ open, onClose, editTarget, onSuccess }: Prop
             <label className="mb-1 block text-sm font-medium text-gray-700">
               Mô tả <span className="font-normal text-gray-400">(tùy chọn)</span>
             </label>
-            <textarea {...register("moTa")} rows={3} placeholder="Mô tả ngắn về phòng..." className={inputClass} />
+            <textarea {...register("moTa")} rows={3} placeholder="Mô tả ngắn về phòng..." className={`${inputClass} resize-none`} />
           </div>
 
           <div>
