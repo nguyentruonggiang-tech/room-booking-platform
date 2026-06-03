@@ -6,7 +6,8 @@ import { useAuthStore } from "@/store/auth.store";
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const { token, user } = useAuthStore();
+  const token = useAuthStore((s) => s.token);
+  const role = useAuthStore((s) => s.user?.role);
 
   useEffect(() => {
     if (!token) {
@@ -14,10 +15,10 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
       return;
     }
  
-    if (user && user.role !== "ADMIN") {
+    if (role && role !== "ADMIN") {
       router.replace("/");
     }
-  }, [token, user, router]);
+  }, [token, role, router]);
 
   if (!token) return null;
 
