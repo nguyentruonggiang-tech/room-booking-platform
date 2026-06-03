@@ -27,7 +27,7 @@ const inputClass =
 export default function LocationModal({ open, onClose, editTarget, onSuccess }: Props) {
   const isEdit = editTarget !== null;
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string>("");
+  const [preview, setPreview] = useState("");
 
   const {
     register,

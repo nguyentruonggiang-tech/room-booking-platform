@@ -29,6 +29,7 @@ export default function LocationsContent() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<AdminLocation | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
+
   const debouncedKeyword = useDebounce(keyword);
 
   useEffect(() => {
