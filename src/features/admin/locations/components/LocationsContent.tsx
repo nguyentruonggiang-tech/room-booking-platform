@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Search, MapPinPlus } from "lucide-react";
 import { useDebounce } from "@/hooks/useDebounce";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
 import { adminLocationService } from "@/features/admin/locations/services/admin-location.service";
 import Pagination from "@/shared/pagination/Pagination";
 import LocationTable from "./LocationTable";
@@ -60,6 +62,27 @@ export default function LocationsContent() {
     setModalOpen(true);
   }
 
+  async function handleDelete(location: AdminLocation) {
+    const { isConfirmed } = await Swal.fire({
+      title: "Xóa vị trí?",
+      text: `"${location.tenViTri}" sẽ bị xóa vĩnh viễn.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Xóa",
+      cancelButtonText: "Hủy",
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6b7280",
+    });
+    if (!isConfirmed) return;
+    try {
+      await adminLocationService.remove(location.id);
+      toast.success("Xóa vị trí thành công");
+      handleSuccess();
+    } catch {
+      toast.error("Xóa thất bại");
+    }
+  }
+
   function handleSuccess() {
     setRefreshKey((k) => k + 1);
   }
@@ -98,7 +121,7 @@ export default function LocationsContent() {
         loading={loading}
         error={error}
         onEdit={openEdit}
-        onDelete={() => {}}
+        onDelete={handleDelete}
       />
 
       <LocationModal

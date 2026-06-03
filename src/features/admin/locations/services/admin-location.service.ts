@@ -23,6 +23,9 @@ export const adminLocationService = {
       .put(`${API_ENDPOINTS.locations}/${id}`, { id, ...body })
       .then((res) => res.data.content),
 
+  remove: (id: number): Promise<void> =>
+    axiosInstance.delete(`${API_ENDPOINTS.locations}/${id}`).then((res) => res.data.content),
+
   uploadImage: (id: number, file: File): Promise<AdminLocation> => {
     const form = new FormData();
     form.append("formFile", file);
