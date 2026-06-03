@@ -113,7 +113,7 @@ export default function UsersContent() {
           placeholder="Tìm tên hoặc email..."
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
-          className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-9 pr-4 text-sm outline-none focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500"
+          className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-9 pr-4 text-sm outline-none focus:border-admin-primary focus:bg-white focus:ring-1 focus:ring-admin-primary"
         />
       </div>
 
