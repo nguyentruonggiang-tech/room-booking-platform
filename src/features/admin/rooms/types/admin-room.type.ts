@@ -19,3 +19,5 @@ export type AdminRoom = {
   maViTri: number;
   hinhAnh: string;
 };
+
+export type RoomBody = Omit<AdminRoom, "id">;

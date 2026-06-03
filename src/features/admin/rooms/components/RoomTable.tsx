@@ -9,7 +9,7 @@ type Props = {
   onDelete: (room: AdminRoom) => void;
 };
 
-const COLUMNS = ["Phòng", "Sức chứa", "Giá / đêm", "Thao tác"];
+const COLUMNS = ["Phòng", "Số khách", "Giá / đêm", "Thao tác"];
 const SKELETON_ROWS = 8;
 
 function formatVND(amount: number) {

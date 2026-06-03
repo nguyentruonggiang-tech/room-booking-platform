@@ -7,6 +7,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { adminRoomService } from "@/features/admin/rooms/services/admin-room.service";
 import Pagination from "@/shared/pagination/Pagination";
 import RoomTable from "./RoomTable";
+import RoomModal from "./RoomModal";
 import type { AdminRoom } from "../types/admin-room.type";
 
 const PAGE_SIZE = 10;
@@ -23,6 +24,9 @@ export default function RoomsContent() {
   const [totalRow, setTotalRow] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editTarget, setEditTarget] = useState<AdminRoom | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const debouncedKeyword = useDebounce(keyword);
 
@@ -41,11 +45,25 @@ export default function RoomsContent() {
       })
       .catch(() => setError("Không thể tải danh sách phòng."))
       .finally(() => setLoading(false));
-  }, [debouncedKeyword, pageIndex]);
+  }, [debouncedKeyword, pageIndex, refreshKey]);
 
   const totalPage = Math.ceil(totalRow / PAGE_SIZE);
   const from = totalRow === 0 ? 0 : (pageIndex - 1) * PAGE_SIZE + 1;
   const to = Math.min(pageIndex * PAGE_SIZE, totalRow);
+
+  function openCreate() {
+    setEditTarget(null);
+    setModalOpen(true);
+  }
+
+  function openEdit(room: AdminRoom) {
+    setEditTarget(room);
+    setModalOpen(true);
+  }
+
+  function handleSuccess() {
+    setRefreshKey((k) => k + 1);
+  }
 
   return (
     <div className="space-y-5">
@@ -56,7 +74,10 @@ export default function RoomsContent() {
             Xem và quản lý tất cả phòng trong hệ thống
           </p>
         </div>
-        <button className="flex items-center gap-2 rounded-xl bg-admin-primary px-4 py-2.5 text-sm font-medium text-white hover:opacity-90">
+        <button
+          onClick={openCreate}
+          className="flex items-center gap-2 rounded-xl bg-admin-primary px-4 py-2.5 text-sm font-medium text-white hover:opacity-90"
+        >
           <Plus className="h-4 w-4" />
           Thêm phòng
         </button>
@@ -77,8 +98,15 @@ export default function RoomsContent() {
         rooms={rooms}
         loading={loading}
         error={error}
-        onEdit={() => {}}
+        onEdit={openEdit}
         onDelete={() => {}}
+      />
+
+      <RoomModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSuccess={handleSuccess}
+        editTarget={editTarget}
       />
 
       {totalRow > 0 && (
