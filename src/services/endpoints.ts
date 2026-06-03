@@ -1,6 +1,7 @@
 export const API_ENDPOINTS = {
     auth: "/api/auth",
     users: "/api/users",
+    uploadAvatar: "/api/users/upload-avatar",
     locations: "/api/vi-tri",
     rooms: "/api/phong-thue",
     bookings: "/api/dat-phong",
