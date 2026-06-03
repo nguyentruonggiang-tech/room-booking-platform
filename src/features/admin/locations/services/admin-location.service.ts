@@ -4,6 +4,9 @@ import type { PhanTrang } from "@/shared/pagination/pagination.type";
 import type { AdminLocation, LocationBody } from "../types/admin-location.type";
 
 export const adminLocationService = {
+  getAll: (): Promise<AdminLocation[]> =>
+    axiosInstance.get(API_ENDPOINTS.locations).then((res) => res.data.content),
+
   getPaged: (
     pageIndex = 1,
     pageSize = 10,
