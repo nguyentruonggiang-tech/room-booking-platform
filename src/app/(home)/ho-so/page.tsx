@@ -7,6 +7,7 @@ import { useAuthStore } from "@/store/auth.store";
 import type { ThongTinNguoiDung } from "@/features/auth/types/auth.type";
 import ProfileInfo from "@/features/users/components/ProfileInfo";
 import ProfileForm from "@/features/users/components/ProfileForm";
+import BookingHistory from "@/features/bookings/components/BookingHistory";
 
 type Tab = "ho-so" | "phong-da-thue";
 
@@ -91,9 +92,7 @@ export default function ProfilePage() {
 
           {activeTab === "ho-so" && <ProfileForm user={profile} />}
 
-          {activeTab === "phong-da-thue" && (
-            <p className="text-sm text-gray-400">Chưa có phòng nào được thuê.</p>
-          )}
+          {activeTab === "phong-da-thue" && <BookingHistory userId={profile.id!} />}
         </div>
       </div>
     </main>
