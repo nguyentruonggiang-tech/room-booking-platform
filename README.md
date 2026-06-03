@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Room Booking Platform
+
+An Airbnb-inspired room booking application built with Next.js 16 App Router.
+
+## Tech Stack
+
+- **Framework**: Next.js 16 App Router, TypeScript
+- **Styling**: Tailwind CSS v4
+- **State**: Zustand (auth, search, theme)
+- **Form**: React Hook Form + Zod
+- **HTTP**: Axios with automatic token interceptor
+- **UI**: lucide-react (icons), Sonner (toast), SweetAlert2 (confirm dialog)
+- **Map**: Leaflet
+
+## Features
+
+### Client (Home)
+- Home page — featured locations, suggested rooms
+- Room search by location, date, guest count (debounced)
+- Room list by location
+- Room detail — info, booking form, comments
+- Register / Login — form validation, token storage
+- User profile — update info, avatar upload, booking history
+- Dark mode toggle (persisted to localStorage)
+
+### Admin
+- Dashboard — shortcuts to 4 management modules
+- User management — CRUD, debounced search, pagination
+- Location management — CRUD, image upload, search, pagination
+- Room management — CRUD, image upload, amenities, location picker
+- Booking management — list view, delete
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                  # Next.js App Router pages
+│   ├── (home)/           # Home layout group
+│   ├── admin/            # Admin layout group
+│   └── globals.css
+├── features/             # Feature-based modules
+│   ├── admin/
+│   │   ├── bookings/
+│   │   ├── locations/
+│   │   ├── rooms/
+│   │   └── users/
+│   ├── auth/
+│   ├── bookings/
+│   ├── comments/
+│   ├── home/
+│   ├── locations/
+│   ├── rooms/
+│   └── users/
+├── components/           # Shared UI components
+├── shared/               # Utilities, pagination, types
+├── services/             # Axios instance, endpoints
+├── store/                # Zustand stores
+└── hooks/                # Custom hooks
+```
 
-## Learn More
+## API
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Connects to the Cybersoft API. Auth token is automatically attached via Axios request interceptor.
