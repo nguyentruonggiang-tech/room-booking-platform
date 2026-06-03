@@ -5,3 +5,10 @@ export type AdminLocation = {
   quocGia: string;
   hinhAnh: string;
 };
+
+export type LocationBody = {
+  tenViTri: string;
+  tinhThanh: string;
+  quocGia: string;
+  hinhAnh: string;
+};
