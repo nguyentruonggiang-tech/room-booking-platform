@@ -15,8 +15,6 @@ export default function AdminSidebar() {
 
   return (
     <div className="flex h-full flex-col">
-
-      {/* Brand */}
       <div className="flex h-16 items-center gap-3 border-b border-admin-border px-5">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-admin-primary">
           <LayoutGrid size={18} className="text-white" />
@@ -27,7 +25,6 @@ export default function AdminSidebar() {
         </div>
       </div>
 
-      {/* Main nav */}
       <nav className="flex-1 px-3 py-4">
         {adminMenuList.map((item) => {
           const isActive = pathname.startsWith(item.path);
@@ -49,7 +46,6 @@ export default function AdminSidebar() {
         })}
       </nav>
 
-      {/* Bottom nav */}
       <div className="border-t border-admin-border px-3 py-3">
         {bottomMenuList.map((item) => {
           const Icon = item.icon;
