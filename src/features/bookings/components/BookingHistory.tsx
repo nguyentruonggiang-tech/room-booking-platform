@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { CalendarDays, ChevronLeft, ChevronRight, Wifi, Wind, WashingMachine, ChefHat, Car, Waves, MonitorPlay, Zap, Thermometer } from "lucide-react";
+import { useEffect, useState } from "react";
+import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { bookingService } from "@/features/bookings/services/booking.service";
 import { roomService } from "@/features/rooms/services/room.service";
 import { getPaginationItems } from "@/shared/pagination/getPaginationItems";
+import { formatDate } from "@/shared/utils/date";
+import { AMENITIES } from "@/features/rooms/utils/amenities";
 import type { DatPhongViewModel } from "@/features/bookings/types/booking.type";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
 
@@ -17,28 +19,6 @@ type BookingItem = {
   booking: DatPhongViewModel;
   room: PhongViewModel;
 };
-
-type AmenityItem = { key: keyof PhongViewModel; icon: React.ElementType; bg: string; color: string; label: string };
-
-const AMENITY_ICONS: AmenityItem[] = [
-  { key: "wifi",    icon: Wifi,           bg: "bg-blue-100",   color: "text-blue-600",   label: "Wifi" },
-  { key: "dieuHoa", icon: Wind,           bg: "bg-cyan-100",   color: "text-cyan-600",   label: "Điều hòa" },
-  { key: "tivi",    icon: MonitorPlay,    bg: "bg-purple-100", color: "text-purple-600", label: "Tivi" },
-  { key: "bep",     icon: ChefHat,        bg: "bg-orange-100", color: "text-orange-500", label: "Bếp" },
-  { key: "mayGiat", icon: WashingMachine, bg: "bg-sky-100",    color: "text-sky-500",    label: "Máy giặt" },
-  { key: "banLa",   icon: Zap,            bg: "bg-yellow-100", color: "text-yellow-500", label: "Bàn là" },
-  { key: "doXe",    icon: Car,            bg: "bg-green-100",  color: "text-green-600",  label: "Đỗ xe" },
-  { key: "hoBoi",   icon: Waves,          bg: "bg-blue-100",   color: "text-blue-500",   label: "Hồ bơi" },
-  { key: "banUi",   icon: Thermometer,    bg: "bg-rose-100",   color: "text-rose-500",   label: "Bàn ủi" },
-];
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-}
 
 type Props = {
   userId: number;
@@ -107,7 +87,7 @@ export default function BookingHistory({ userId }: Props) {
                   {room.khach} khách · {room.phongNgu} phòng ngủ · {room.giuong} giường · {room.phongTam} phòng tắm
                 </p>
                 <div className="mt-2 grid grid-cols-3 gap-x-3 gap-y-2">
-                  {AMENITY_ICONS.filter(({ key }) => room[key]).map(({ key, icon: Icon, bg, color, label }) => (
+                  {AMENITIES.filter(({ key }) => room[key] === true).map(({ key, icon: Icon, bg, color, label }) => (
                     <div key={key} className="flex items-center gap-2 text-sm text-gray-700">
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${bg}`}>
                         <Icon size={15} className={color} />
