@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Home, Loader2, LogOut, MapPin, Moon, Search, User } from "lucide-react";
+import { Home, Loader2, LogOut, MapPin, Search, User } from "lucide-react";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 import { toast } from "sonner";
 import { homeNavList } from "./home-layout.constants";
 import { useAuthStore } from "@/store/auth.store";
@@ -225,9 +226,7 @@ export default function HomeHeader() {
           <button className="hidden text-sm font-medium text-white/90 transition-colors hover:text-brand md:block">
             {isRoomList ? "Trở thành chủ nhà" : "Đón tiếp khách"}
           </button>
-          <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-brand">
-            <Moon size={16} />
-          </button>
+          <ThemeToggle className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-brand" />
 
           {isLoggedIn && user ? (
             <div className="flex items-center gap-2">

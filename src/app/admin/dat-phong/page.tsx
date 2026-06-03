@@ -1,3 +1,10 @@
-export default function AdminBookingsPage() {
-  return <main>Admin Dat Phong Page</main>;
+import { Suspense } from "react";
+import BookingsContent from "@/features/admin/bookings/components/BookingsContent";
+
+export default function BookingsPage() {
+  return (
+    <Suspense>
+      <BookingsContent />
+    </Suspense>
+  );
 }

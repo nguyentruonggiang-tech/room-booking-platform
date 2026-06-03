@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Search, User } from "lucide-react";
 import { adminMenuList } from "./admin-menu";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 
 export default function AdminHeader() {
   const pathname = usePathname();
@@ -22,6 +23,7 @@ export default function AdminHeader() {
             className="w-full bg-transparent text-sm text-white placeholder:text-white/40 outline-none"
           />
         </div>
+        <ThemeToggle className="flex h-8 w-8 items-center justify-center rounded-lg border border-admin-border text-white/60 hover:text-white" />
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-admin-primary">
           <User size={14} className="text-white" />
         </div>
