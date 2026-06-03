@@ -70,7 +70,6 @@ export default function BookingBox({ room }: Props) {
   return (
     <div className="sticky top-24 rounded-2xl border border-gray-200 p-6 shadow-lg">
 
-      {/* Giá + Rating */}
       <div className="flex items-center justify-between">
         <p className="text-xl font-bold text-gray-900">
           {formatVND(nightlyPrice)}
@@ -83,7 +82,6 @@ export default function BookingBox({ room }: Props) {
         </div>
       </div>
 
-      {/* Ngày + Khách */}
       <div className="mt-4 overflow-hidden rounded-xl border border-gray-300">
         <div className="grid grid-cols-2 divide-x divide-gray-300">
           <div className="p-3">
@@ -130,7 +128,6 @@ export default function BookingBox({ room }: Props) {
         </div>
       </div>
 
-      {/* Nút đặt phòng */}
       <button
         type="button"
         onClick={handleBook}
@@ -141,7 +138,6 @@ export default function BookingBox({ room }: Props) {
       </button>
       <p className="mt-2 text-center text-xs text-gray-500">Bạn vẫn chưa bị trừ tiền</p>
 
-      {/* Breakdown giá */}
       <div className="mt-4 flex flex-col gap-3 border-t border-gray-100 pt-4 text-sm">
         {nights > 0 ? (
           <>
