@@ -21,6 +21,9 @@ export const adminRoomService = {
   update: (id: number, body: RoomBody): Promise<AdminRoom> =>
     axiosInstance.put(`${API_ENDPOINTS.rooms}/${id}`, { id, ...body }).then((res) => res.data.content),
 
+  remove: (id: number): Promise<void> =>
+    axiosInstance.delete(`${API_ENDPOINTS.rooms}/${id}`).then((res) => res.data.content),
+
   uploadImage: (id: number, file: File): Promise<AdminRoom> => {
     const form = new FormData();
     form.append("formFile", file);

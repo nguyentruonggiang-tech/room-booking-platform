@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Search, Plus } from "lucide-react";
 import { useDebounce } from "@/hooks/useDebounce";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
 import { adminRoomService } from "@/features/admin/rooms/services/admin-room.service";
 import Pagination from "@/shared/pagination/Pagination";
 import RoomTable from "./RoomTable";
@@ -61,6 +63,27 @@ export default function RoomsContent() {
     setModalOpen(true);
   }
 
+  async function handleDelete(room: AdminRoom) {
+    const { isConfirmed } = await Swal.fire({
+      title: "Xóa phòng?",
+      text: `"${room.tenPhong}" sẽ bị xóa vĩnh viễn.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Xóa",
+      cancelButtonText: "Hủy",
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6b7280",
+    });
+    if (!isConfirmed) return;
+    try {
+      await adminRoomService.remove(room.id);
+      toast.success("Xóa phòng thành công");
+      handleSuccess();
+    } catch {
+      toast.error("Xóa thất bại");
+    }
+  }
+
   function handleSuccess() {
     setRefreshKey((k) => k + 1);
   }
@@ -99,7 +122,7 @@ export default function RoomsContent() {
         loading={loading}
         error={error}
         onEdit={openEdit}
-        onDelete={() => {}}
+        onDelete={handleDelete}
       />
 
       <RoomModal
