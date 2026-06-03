@@ -3,8 +3,8 @@ import { API_ENDPOINTS } from "@/services/endpoints";
 import type { DatPhongPayload, DatPhongViewModel } from "@/features/bookings/types/booking.type";
 
 export const bookingService = {
-  create: (payload: DatPhongPayload, token: string): Promise<void> =>
-    axiosInstance.post(API_ENDPOINTS.bookings, payload, { headers: { token } }),
+  create: (payload: DatPhongPayload): Promise<void> =>
+    axiosInstance.post(API_ENDPOINTS.bookings, payload),
 
   getByUser: (userId: number): Promise<DatPhongViewModel[]> =>
     axiosInstance

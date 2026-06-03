@@ -52,16 +52,13 @@ export default function BookingBox({ room }: Props) {
     }
     setLoading(true);
     try {
-      await bookingService.create(
-        {
-          maPhong: room.id,
-          ngayDen: new Date(ngayDen).toISOString(),
-          ngayDi: new Date(ngayDi).toISOString(),
-          soLuongKhach: soKhach,
-          maNguoiDung: user.id!,
-        },
-        token,
-      );
+      await bookingService.create({
+        maPhong: room.id,
+        ngayDen: new Date(ngayDen).toISOString(),
+        ngayDi: new Date(ngayDi).toISOString(),
+        soLuongKhach: soKhach,
+        maNguoiDung: user.id!,
+      });
       toast.success("Đặt phòng thành công!");
     } catch {
       toast.error("Đặt phòng thất bại. Vui lòng thử lại.");
