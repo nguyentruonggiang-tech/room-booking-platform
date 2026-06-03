@@ -5,6 +5,7 @@ import { CalendarDays, ChevronLeft, ChevronRight, Wifi, Wind, WashingMachine, Ch
 import { bookingService } from "@/features/bookings/services/booking.service";
 import { roomService } from "@/features/rooms/services/room.service";
 import { getPaginationItems } from "@/shared/pagination/getPaginationItems";
+import { formatDate } from "@/shared/utils/date";
 import type { DatPhongViewModel } from "@/features/bookings/types/booking.type";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
 
@@ -31,14 +32,6 @@ const AMENITY_ICONS: AmenityItem[] = [
   { key: "hoBoi",   icon: Waves,          bg: "bg-blue-100",   color: "text-blue-500",   label: "Hồ bơi" },
   { key: "banUi",   icon: Thermometer,    bg: "bg-rose-100",   color: "text-rose-500",   label: "Bàn ủi" },
 ];
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-}
 
 type Props = {
   userId: number;

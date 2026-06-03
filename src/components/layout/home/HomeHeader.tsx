@@ -11,17 +11,12 @@ import { useSearchStore } from "@/store/search.store";
 import { useDebounce } from "@/hooks/useDebounce";
 import { locationService } from "@/features/locations/services/location.service";
 import type { ViTriViewModel } from "@/features/locations/types/location.type";
+import { getInitials } from "@/shared/utils/string";
 
 function formatDate(dateStr: string): string {
   if (!dateStr) return "";
   const [, month, day] = dateStr.split("-");
   return `${parseInt(day)} thg ${parseInt(month)}`;
-}
-
-function getInitials(name: string): string {
-  const parts = name.trim().split(" ");
-  if (parts.length === 1) return parts[0][0].toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
 function UserAvatar({ name, avatar }: { name: string; avatar?: string }) {

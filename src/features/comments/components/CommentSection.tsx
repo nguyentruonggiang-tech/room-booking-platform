@@ -6,22 +6,12 @@ import { toast } from "sonner";
 import { useAuthStore } from "@/store/auth.store";
 import { commentService } from "@/features/comments/services/comment.service";
 import type { BinhLuanViewModel } from "@/features/comments/types/comment.type";
+import { getInitials } from "@/shared/utils/string";
+import { formatDate } from "@/shared/utils/date";
 
 const PAGE_SIZE = 6;
 const AVATAR_FALLBACK = (seed: number | string) =>
   `https://api.dicebear.com/9.x/avataaars/svg?seed=${seed}&backgroundColor=bfdbfe`;
-
-function getInitials(name: string): string {
-  const parts = name.trim().split(" ");
-  if (parts.length === 1) return parts[0][0].toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-}
-
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  if (isNaN(date.getTime())) return "";
-  return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
-}
 
 function UserAvatar({ name, avatar }: { name: string; avatar?: string }) {
   const [imgErr, setImgErr] = useState(false);
