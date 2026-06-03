@@ -1,23 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Car, Calendar, ChefHat, Home, Medal, MonitorPlay, Sparkles, Thermometer, WashingMachine, Waves, Wind, Wifi, Zap } from "lucide-react";
-import type { ReactNode } from "react";
+import { Calendar, Home, Medal, Sparkles } from "lucide-react";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
-
-type AmenityConfig = { label: string; icon: ReactNode; bg: string };
-
-const AMENITIES: Partial<Record<keyof PhongViewModel, AmenityConfig>> = {
-  wifi:    { label: "Wifi",               bg: "bg-blue-100",   icon: <Wifi size={18} className="text-blue-600" /> },
-  dieuHoa: { label: "Điều hòa không khí", bg: "bg-cyan-100",   icon: <Wind size={18} className="text-cyan-600" /> },
-  tivi:    { label: "Tivi",               bg: "bg-purple-100", icon: <MonitorPlay size={18} className="text-purple-600" /> },
-  bep:     { label: "Bếp nấu ăn",         bg: "bg-orange-100", icon: <ChefHat size={18} className="text-orange-500" /> },
-  mayGiat: { label: "Máy giặt",           bg: "bg-sky-100",    icon: <WashingMachine size={18} className="text-sky-500" /> },
-  banLa:   { label: "Bàn là",             bg: "bg-yellow-100", icon: <Zap size={18} className="text-yellow-500" /> },
-  doXe:    { label: "Đỗ xe miễn phí",    bg: "bg-green-100",  icon: <Car size={18} className="text-green-600" /> },
-  hoBoi:   { label: "Hồ bơi",             bg: "bg-blue-100",   icon: <Waves size={18} className="text-blue-500" /> },
-  banUi:   { label: "Bàn ủi",             bg: "bg-rose-100",   icon: <Thermometer size={18} className="text-rose-500" /> },
-};
+import { AMENITIES } from "@/features/rooms/utils/amenities";
 
 type Props = {
   room: PhongViewModel;
@@ -33,9 +19,7 @@ export default function RoomInfo({ room }: Props) {
       setIsClamped(moTaRef.current.scrollHeight > moTaRef.current.clientHeight);
     }
   }, [room.moTa]);
-  const activeAmenities = (
-    Object.entries(AMENITIES) as [keyof PhongViewModel, AmenityConfig][]
-  ).filter(([key]) => room[key] === true);
+  const activeAmenities = AMENITIES.filter(({ key }) => room[key] === true);
 
   return (
     <div className="flex flex-col gap-6">
@@ -116,10 +100,10 @@ export default function RoomInfo({ room }: Props) {
         <div className="border-t border-gray-100 pt-6">
           <h2 className="mb-4 text-lg font-semibold text-gray-900">Tiện nghi</h2>
           <div className="grid grid-cols-2 gap-4">
-            {activeAmenities.map(([key, { label, icon, bg }]) => (
+            {activeAmenities.map(({ key, label, icon: Icon, bg, color }) => (
               <div key={key} className="flex items-center gap-3 text-sm text-gray-700">
                 <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${bg}`}>
-                  {icon}
+                  <Icon size={18} className={color} />
                 </div>
                 {label}
               </div>
