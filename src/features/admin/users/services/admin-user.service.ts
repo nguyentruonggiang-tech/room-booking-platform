@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/services/axios";
 import { API_ENDPOINTS } from "@/services/endpoints";
 import type { PhanTrang } from "@/shared/pagination/pagination.type";
-import type { AdminUser } from "../types/admin-user.type";
+import type { AdminUser, UserCreateBody, UserUpdateBody } from "../types/admin-user.type";
 
 export const adminUserService = {
   getPaged: (
@@ -14,4 +14,10 @@ export const adminUserService = {
         params: { pageIndex, pageSize, keyword },
       })
       .then((res) => res.data.content),
+
+  create: (body: UserCreateBody): Promise<AdminUser> =>
+    axiosInstance.post(API_ENDPOINTS.users, body).then((res) => res.data.content),
+
+  update: (id: number, body: UserUpdateBody): Promise<AdminUser> =>
+    axiosInstance.put(`${API_ENDPOINTS.users}/${id}`, body).then((res) => res.data.content),
 };

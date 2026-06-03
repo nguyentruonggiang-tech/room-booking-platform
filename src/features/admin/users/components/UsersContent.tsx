@@ -7,6 +7,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { adminUserService } from "@/features/admin/users/services/admin-user.service";
 import Pagination from "@/shared/pagination/Pagination";
 import UserTable from "./UserTable";
+import UserFormModal from "./UserFormModal";
 import type { AdminUser } from "../types/admin-user.type";
 
 const PAGE_SIZE = 10;
@@ -23,6 +24,8 @@ export default function UsersContent() {
   const [totalRow, setTotalRow] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editTarget, setEditTarget] = useState<AdminUser | null>(null);
 
   const debouncedKeyword = useDebounce(keyword);
 
@@ -47,6 +50,29 @@ export default function UsersContent() {
   const from = totalRow === 0 ? 0 : (pageIndex - 1) * PAGE_SIZE + 1;
   const to = Math.min(pageIndex * PAGE_SIZE, totalRow);
 
+  function openCreate() {
+    setEditTarget(null);
+    setModalOpen(true);
+  }
+
+  function openEdit(user: AdminUser) {
+    setEditTarget(user);
+    setModalOpen(true);
+  }
+
+  function handleSuccess() {
+    setLoading(true);
+    setError(null);
+    adminUserService
+      .getPaged(pageIndex, PAGE_SIZE, debouncedKeyword)
+      .then((res) => {
+        setUsers(res.data);
+        setTotalRow(res.totalRow);
+      })
+      .catch(() => setError("Không thể tải danh sách người dùng."))
+      .finally(() => setLoading(false));
+  }
+
   return (
     <div className="space-y-5">
       <div className="flex items-start justify-between">
@@ -56,7 +82,10 @@ export default function UsersContent() {
             Xem và quản lý tất cả người dùng trong hệ thống
           </p>
         </div>
-        <button className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700">
+        <button
+          onClick={openCreate}
+          className="flex items-center gap-2 rounded-xl bg-admin-primary px-4 py-2.5 text-sm font-medium text-white hover:opacity-90"
+        >
           <UserPlus className="h-4 w-4" />
           Thêm người dùng
         </button>
@@ -73,7 +102,14 @@ export default function UsersContent() {
         />
       </div>
 
-      <UserTable users={users} loading={loading} error={error} />
+      <UserTable users={users} loading={loading} error={error} onEdit={openEdit} />
+
+      <UserFormModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSuccess={handleSuccess}
+        editTarget={editTarget}
+      />
 
       {totalRow > 0 && (
         <div className="flex items-center justify-between text-sm text-gray-500">

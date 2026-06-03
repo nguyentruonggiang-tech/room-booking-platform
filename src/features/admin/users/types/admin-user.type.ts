@@ -6,3 +6,15 @@ export type AdminUser = Omit<ThongTinNguoiDung, "password" | "gender"> & {
   gender: boolean | null;
 };
 
+export type UserCreateBody = {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  birthday: string;
+  gender: boolean;
+  role: string;
+};
+
+export type UserUpdateBody = Omit<UserCreateBody, "password"> & { id: number };
+

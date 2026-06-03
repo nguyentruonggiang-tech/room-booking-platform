@@ -6,6 +6,7 @@ type Props = {
   users: AdminUser[];
   loading: boolean;
   error: string | null;
+  onEdit: (user: AdminUser) => void;
 };
 
 const AVATAR_COLORS = [
@@ -56,7 +57,7 @@ function TableHead() {
   );
 }
 
-export default function UserTable({ users, loading, error }: Props) {
+export default function UserTable({ users, loading, error, onEdit }: Props) {
   if (loading) return <TableSkeleton />;
 
   if (error)
@@ -105,6 +106,7 @@ export default function UserTable({ users, loading, error }: Props) {
                 <div className="flex items-center gap-1">
                   <button
                     title="Sửa"
+                    onClick={() => onEdit(user)}
                     className="rounded-lg p-2 text-gray-400 hover:bg-blue-50 hover:text-blue-600"
                   >
                     <Pencil className="h-4 w-4" />
