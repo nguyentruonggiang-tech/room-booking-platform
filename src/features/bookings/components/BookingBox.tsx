@@ -60,6 +60,8 @@ export default function BookingBox({ room }: Props) {
         maNguoiDung: user.id!,
       });
       toast.success("Đặt phòng thành công!");
+      setNgayDen("");
+      setNgayDi("");
     } catch {
       toast.error("Đặt phòng thất bại. Vui lòng thử lại.");
     } finally {
