@@ -10,7 +10,7 @@ import { adminLocationService } from "@/features/admin/locations/services/admin-
 import { roomSchema, type RoomValues } from "../schemas/room-form.schema";
 import type { AdminRoom } from "../types/admin-room.type";
 import type { AdminLocation } from "@/features/admin/locations/types/admin-location.type";
-import { AMENITIES as AMENITY_LIST } from "@/features/rooms/utils/amenities";
+import { AMENITIES as AMENITY_LIST } from "@/shared/constants/amenities";
 
 type Props = {
   open: boolean;

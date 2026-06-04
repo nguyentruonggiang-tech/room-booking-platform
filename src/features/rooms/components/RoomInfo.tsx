@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Calendar, Home, Medal, Sparkles } from "lucide-react";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
-import { AMENITIES } from "@/features/rooms/utils/amenities";
+import { AMENITIES } from "@/shared/constants/amenities";
 
 type Props = {
   room: PhongViewModel;

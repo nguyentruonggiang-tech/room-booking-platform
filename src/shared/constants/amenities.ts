@@ -2,7 +2,7 @@ import { Car, ChefHat, MonitorPlay, Thermometer, WashingMachine, Waves, Wind, Wi
 import type { ElementType } from "react";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
 
-export type AmenityDef = {
+export type Amenity = {
   key: keyof PhongViewModel;
   label: string;
   icon: ElementType;
@@ -10,7 +10,7 @@ export type AmenityDef = {
   color: string;
 };
 
-export const AMENITIES: AmenityDef[] = [
+export const AMENITIES: Amenity[] = [
   { key: "wifi",    label: "Wifi",               icon: Wifi,           bg: "bg-blue-100",   color: "text-blue-600" },
   { key: "dieuHoa", label: "Điều hòa không khí", icon: Wind,           bg: "bg-cyan-100",   color: "text-cyan-600" },
   { key: "tivi",    label: "Tivi",               icon: MonitorPlay,    bg: "bg-purple-100", color: "text-purple-600" },

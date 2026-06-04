@@ -6,7 +6,7 @@ import { bookingService } from "@/features/bookings/services/booking.service";
 import { roomService } from "@/features/rooms/services/room.service";
 import { getPaginationItems } from "@/shared/pagination/getPaginationItems";
 import { formatDate } from "@/shared/utils/date";
-import { AMENITIES } from "@/features/rooms/utils/amenities";
+import { AMENITIES } from "@/shared/constants/amenities";
 import type { DatPhongViewModel } from "@/features/bookings/types/booking.type";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
 
