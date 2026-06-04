@@ -11,8 +11,7 @@ import Pagination from "@/shared/pagination/Pagination";
 import RoomTable from "./RoomTable";
 import RoomModal from "./RoomModal";
 import type { AdminRoom } from "../types/admin-room.type";
-
-const PAGE_SIZE = 10;
+import { DEFAULT_PAGE_SIZE } from "@/constants/app.constants";
 
 export default function RoomsContent() {
   const searchParams = useSearchParams();
@@ -40,7 +39,7 @@ export default function RoomsContent() {
     setLoading(true);
     setError(null);
     adminRoomService
-      .getPaged(pageIndex, PAGE_SIZE, debouncedKeyword)
+      .getPaged(pageIndex, DEFAULT_PAGE_SIZE, debouncedKeyword)
       .then((res) => {
         setRooms(res.data);
         setTotalRow(res.totalRow);
@@ -49,9 +48,9 @@ export default function RoomsContent() {
       .finally(() => setLoading(false));
   }, [debouncedKeyword, pageIndex, refreshKey]);
 
-  const totalPage = Math.ceil(totalRow / PAGE_SIZE);
-  const from = totalRow === 0 ? 0 : (pageIndex - 1) * PAGE_SIZE + 1;
-  const to = Math.min(pageIndex * PAGE_SIZE, totalRow);
+  const totalPage = Math.ceil(totalRow / DEFAULT_PAGE_SIZE);
+  const from = totalRow === 0 ? 0 : (pageIndex - 1) * DEFAULT_PAGE_SIZE + 1;
+  const to = Math.min(pageIndex * DEFAULT_PAGE_SIZE, totalRow);
 
   function openCreate() {
     setEditTarget(null);

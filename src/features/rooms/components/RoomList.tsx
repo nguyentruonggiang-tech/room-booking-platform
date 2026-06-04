@@ -4,12 +4,8 @@ import { useEffect } from "react";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
 import { locationService } from "@/features/locations/services/location.service";
 import { useSearchStore } from "@/store/search.store";
+import { formatVNDate } from "@/shared/utils/date";
 import RoomCard from "./RoomCard";
-
-function formatVNDate(dateStr: string): string {
-  const [, month, day] = dateStr.split("-");
-  return `${parseInt(day, 10)} tháng ${parseInt(month, 10)}`;
-}
 
 const filterBadges = ["Loại nơi ở", "Giá", "Đặt ngay", "Phòng và phòng ngủ", "Bộ lọc khác"];
 

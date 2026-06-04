@@ -1,18 +1,24 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
 
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const token = useAuthStore((s) => s.token);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!token) router.replace("/dang-nhap");
-  }, [token, router]);
+    setMounted(true);
+  }, []);
 
-  if (!token) return null;
+  useEffect(() => {
+    if (!mounted) return;
+    if (!token) router.replace("/dang-nhap");
+  }, [mounted, token, router]);
+
+  if (!mounted || !token) return null;
 
   return <>{children}</>;
 }

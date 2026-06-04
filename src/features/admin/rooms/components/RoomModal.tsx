@@ -10,6 +10,7 @@ import { adminLocationService } from "@/features/admin/locations/services/admin-
 import { roomSchema, type RoomValues } from "../schemas/room-form.schema";
 import type { AdminRoom } from "../types/admin-room.type";
 import type { AdminLocation } from "@/features/admin/locations/types/admin-location.type";
+import { AMENITIES as AMENITY_LIST } from "@/features/rooms/utils/amenities";
 
 type Props = {
   open: boolean;
@@ -18,17 +19,6 @@ type Props = {
   editTarget: AdminRoom | null;
 };
 
-const AMENITIES: { key: keyof RoomValues; label: string }[] = [
-  { key: "mayGiat", label: "Máy giặt" },
-  { key: "banLa", label: "Bàn là" },
-  { key: "tivi", label: "TV" },
-  { key: "dieuHoa", label: "Điều hòa" },
-  { key: "wifi", label: "Wifi" },
-  { key: "bep", label: "Bếp" },
-  { key: "doXe", label: "Đỗ xe" },
-  { key: "hoBoi", label: "Hồ bơi" },
-  { key: "banUi", label: "Bàn ủi" },
-];
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
@@ -176,9 +166,9 @@ export default function RoomModal({ open, onClose, editTarget, onSuccess }: Prop
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">Tiện ích</label>
             <div className="grid grid-cols-3 gap-2">
-              {AMENITIES.map(({ key, label }) => (
+              {AMENITY_LIST.map(({ key, label }) => (
                 <label key={key} className="flex cursor-pointer items-center gap-2 text-sm text-gray-700">
-                  <input {...register(key)} type="checkbox" className="accent-admin-primary" />
+                  <input {...register(key as keyof RoomValues)} type="checkbox" className="accent-admin-primary" />
                   {label}
                 </label>
               ))}

@@ -29,7 +29,7 @@ export default function HomeFooter() {
         {/* Bottom bar */}
         <div className="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-border-dark-soft pt-5">
           <div className="flex flex-wrap items-center gap-2 text-sm text-white/60">
-            <span>© 2026 Airbnb, Inc. All rights reserved</span>
+            <span>© {new Date().getFullYear()} Airbnb, Inc. All rights reserved</span>
             {footerLegalLinkList.map((link) => (
               <span key={link} className="hover:text-white/90 cursor-pointer transition-colors">
                 · {link}

@@ -1,4 +1,5 @@
 import { Pencil, Trash2, MapPin } from "lucide-react";
+import { SKELETON_ROWS } from "@/constants/app.constants";
 import type { AdminLocation } from "../types/admin-location.type";
 
 type Props = {
@@ -10,7 +11,6 @@ type Props = {
 };
 
 const COLUMNS = ["Vị trí", "Tỉnh / Thành", "Quốc gia", "Thao tác"];
-const SKELETON_ROWS = 8;
 
 function TableHead() {
   return (

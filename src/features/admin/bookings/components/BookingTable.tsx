@@ -1,4 +1,6 @@
 import { Trash2 } from "lucide-react";
+import { formatDate } from "@/shared/utils/date";
+import { SKELETON_ROWS } from "@/constants/app.constants";
 import type { AdminBooking } from "../types/admin-booking.type";
 
 type Props = {
@@ -9,14 +11,6 @@ type Props = {
 };
 
 const COLUMNS = ["STT", "Mã phòng", "Ngày đến", "Ngày đi", "Số khách", "Mã người dùng", "Thao tác"];
-const SKELETON_ROWS = 8;
-
-function formatDate(value: string) {
-  if (!value) return "—";
-  const date = new Date(value);
-  if (isNaN(date.getTime())) return value;
-  return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
-}
 
 function TableHead() {
   return (

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
 
+const ADMIN_ROLE = "ADMIN";
+
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const token = useAuthStore((s) => s.token);
@@ -20,7 +22,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
       router.replace("/dang-nhap");
       return;
     }
-    if (!role || role !== "ADMIN") {
+    if (!role || role !== ADMIN_ROLE) {
       router.replace("/");
     }
   }, [mounted, token, role, router]);

@@ -1,4 +1,5 @@
 import { Pencil, Trash2, BedDouble } from "lucide-react";
+import { SKELETON_ROWS } from "@/constants/app.constants";
 import type { AdminRoom } from "../types/admin-room.type";
 
 type Props = {
@@ -10,7 +11,6 @@ type Props = {
 };
 
 const COLUMNS = ["Phòng", "Số khách", "Giá / đêm", "Thao tác"];
-const SKELETON_ROWS = 8;
 
 function formatVND(amount: number) {
   return amount.toLocaleString("vi-VN") + " ₫";

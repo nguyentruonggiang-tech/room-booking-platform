@@ -53,13 +53,11 @@ export default function LoginForm() {
 
   return (
     <div className="flex min-h-screen">
-      {/* Ảnh trái */}
       <div className="relative hidden lg:block lg:w-2/5">
         <img src={BG_IMAGE_LOGIN} alt="" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-surface-dark/60" />
       </div>
 
-      {/* Form phải */}
       <div className="flex flex-1 items-center justify-center bg-gray-50 px-6 py-12">
         <div className="w-full max-w-md">
           <h1 className="mb-4 text-3xl font-bold text-gray-900">Đăng nhập</h1>

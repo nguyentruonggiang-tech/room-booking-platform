@@ -1,5 +1,7 @@
 import { Pencil, Trash2 } from "lucide-react";
 import { getInitials } from "@/shared/utils/string";
+import { formatDate } from "@/shared/utils/date";
+import { SKELETON_ROWS } from "@/constants/app.constants";
 import type { AdminUser } from "../types/admin-user.type";
 
 type Props = {
@@ -34,15 +36,7 @@ function roleStyle(role: string) {
   return ROLE_STYLES[role?.toUpperCase()] ?? "bg-gray-100 text-gray-600";
 }
 
-function formatBirthday(value: string | null | undefined) {
-  if (!value) return "—";
-  const date = new Date(value);
-  if (isNaN(date.getTime())) return value;
-  return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
-}
-
 const COLUMNS = ["Tên & liên hệ", "Vai trò", "Ngày sinh", "Thao tác"];
-const SKELETON_ROWS = 8;
 
 function TableHead() {
   return (
@@ -102,7 +96,7 @@ export default function UserTable({ users, loading, error, onEdit, onDelete }: P
                   {user.role || "—"}
                 </span>
               </td>
-              <td className="px-6 py-4 text-gray-500">{formatBirthday(user.birthday)}</td>
+              <td className="px-6 py-4 text-gray-500">{formatDate(user.birthday ?? "") || "—"}</td>
               <td className="px-6 py-4">
                 <div className="flex items-center gap-1">
                   <button

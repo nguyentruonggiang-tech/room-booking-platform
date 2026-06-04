@@ -13,12 +13,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { locationService } from "@/features/locations/services/location.service";
 import type { ViTriViewModel } from "@/features/locations/types/location.type";
 import { getInitials } from "@/shared/utils/string";
-
-function formatDate(dateStr: string): string {
-  if (!dateStr) return "";
-  const [, month, day] = dateStr.split("-");
-  return `${parseInt(day)} thg ${parseInt(month)}`;
-}
+import { formatVNDate } from "@/shared/utils/date";
 
 function UserAvatar({ name, avatar }: { name: string; avatar?: string }) {
   const [imgError, setImgError] = useState(false);
@@ -53,7 +48,7 @@ export default function HomeHeader() {
     : "Khu vực bản đồ đã chọn";
   const isLoggedIn = !!token;
 
-  const dateLabel = ngayDen && ngayDi ? `${formatDate(ngayDen)} – ${formatDate(ngayDi)}` : "Thêm ngày";
+  const dateLabel = ngayDen && ngayDi ? `${formatVNDate(ngayDen)} – ${formatVNDate(ngayDi)}` : "Thêm ngày";
 
   const locationRef = useRef<HTMLDivElement>(null);
   const [locationOpen, setLocationOpen] = useState(false);
