@@ -126,7 +126,7 @@ export default function LocationsContent() {
 
       <LocationModal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => { setModalOpen(false); setEditTarget(null); }}
         onSuccess={handleSuccess}
         editTarget={editTarget}
       />

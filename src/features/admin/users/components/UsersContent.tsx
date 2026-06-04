@@ -120,7 +120,7 @@ export default function UsersContent() {
 
       <UserModal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => { setModalOpen(false); setEditTarget(null); }}
         onSuccess={handleSuccess}
         editTarget={editTarget}
       />
