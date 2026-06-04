@@ -34,14 +34,20 @@ export default function BookingHistory({ userId }: Props) {
     bookingService
       .getByUser(userId)
       .then((bookings) =>
-        Promise.all(
+        Promise.allSettled(
           bookings.map(async (booking) => {
             const room = await roomService.getById(booking.maPhong);
             return { booking, room };
           })
         )
       )
-      .then(setItems)
+      .then((results) => {
+        setItems(
+          results
+            .filter((result): result is PromiseFulfilledResult<BookingItem> => result.status === "fulfilled")
+            .map((result) => result.value)
+        );
+      })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, [userId]);
