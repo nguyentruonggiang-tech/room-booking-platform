@@ -20,7 +20,9 @@ function toDateInput(birthday: string): string {
 }
 
 function toApiBirthday(dateInput: string): string {
-  const [year, month, day] = dateInput.split("-");
+  const parts = dateInput.split("-");
+  if (parts.length !== 3 || parts.some((p) => !p)) return "";
+  const [year, month, day] = parts;
   return `${day}-${month}-${year}`;
 }
 
