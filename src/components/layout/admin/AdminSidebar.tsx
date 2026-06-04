@@ -51,7 +51,7 @@ export default function AdminSidebar() {
           const Icon = item.icon;
           return (
             <Link
-              key={item.path}
+              key={item.label}
               href={item.path}
               className="mb-1 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white"
             >
