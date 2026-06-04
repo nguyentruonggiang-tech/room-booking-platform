@@ -121,7 +121,7 @@ export default function BookingBox({ room }: Props) {
             <span className="min-w-[16px] text-center text-sm text-gray-800">{soKhach}</span>
             <button
               type="button"
-              onClick={() => setSoKhach(Math.min(room.khach, soKhach + 1))}
+              onClick={() => setSoKhach(room.khach ? Math.min(room.khach, soKhach + 1) : soKhach + 1)}
               className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50"
             >
               +
