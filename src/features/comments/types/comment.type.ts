@@ -5,7 +5,6 @@ export type BinhLuanViewModel = {
   ngayBinhLuan: string;
   noiDung: string;
   saoBinhLuan: number;
-  // fields thực tế API trả về, không có trong swagger
   tenNguoiBinhLuan?: string;
   avatar?: string;
 };

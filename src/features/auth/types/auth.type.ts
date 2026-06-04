@@ -7,7 +7,7 @@ export type ThongTinNguoiDung = {
   birthday: string;
   gender: boolean;
   role?: string;
-  avatar?: string; // cần confirm từ response thực tế, không có trong swagger
+  avatar?: string;
 };
 
 export type RegisterRequestBody = Pick<
