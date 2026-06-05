@@ -50,6 +50,7 @@ export default function HomeHeader() {
 
   const dateLabel = ngayDen && ngayDi ? `${formatVNDate(ngayDen)} – ${formatVNDate(ngayDi)}` : "Thêm ngày";
 
+  const [mounted, setMounted] = useState(false);
   const locationRef = useRef<HTMLDivElement>(null);
   const [locationOpen, setLocationOpen] = useState(false);
   const [dateOpen, setDateOpen] = useState(false);
@@ -57,6 +58,8 @@ export default function HomeHeader() {
   const [suggestions, setSuggestions] = useState<ViTriViewModel[]>([]);
   const [locLoading, setLocLoading] = useState(false);
   const debouncedKeyword = useDebounce(headerKeyword, 400);
+
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     if (!locationOpen) return;
@@ -93,7 +96,7 @@ export default function HomeHeader() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border-dark bg-surface-dark text-white">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border-dark bg-surface-dark dark:text-white text-gray-900">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-8">
 
         <Link href="/" className="flex items-center gap-2">
@@ -208,7 +211,7 @@ export default function HomeHeader() {
                 className={`border-b-2 pb-1 text-base font-medium transition-colors ${
                   index === 0
                     ? "border-brand text-brand"
-                    : "border-transparent text-white/90 hover:text-brand"
+                    : "border-transparent dark:text-white/90 text-gray-600 hover:text-brand"
                 }`}
               >
                 {item.label}
@@ -218,33 +221,33 @@ export default function HomeHeader() {
         )}
 
         <div className="flex items-center gap-3">
-          <button className="hidden text-sm font-medium text-white/90 transition-colors hover:text-brand md:block">
+          <button className="hidden text-sm font-medium dark:text-white/90 text-gray-600 transition-colors hover:text-brand md:block">
             {isRoomList ? "Trở thành chủ nhà" : "Đón tiếp khách"}
           </button>
-          <ThemeToggle className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-brand" />
+          <ThemeToggle className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated dark:text-white/90 text-gray-600 transition-colors hover:text-brand" />
 
-          {isLoggedIn && user ? (
+          {mounted && isLoggedIn && user ? (
             <div className="flex items-center gap-2">
               <Link href="/ho-so" className="flex items-center gap-2">
                 <UserAvatar name={user.name} avatar={user.avatar} />
-                <span className="hidden text-sm font-medium text-white/90 hover:text-brand transition-colors md:block">
+                <span className="hidden text-sm font-medium dark:text-white/90 text-gray-700 hover:text-brand transition-colors md:block">
                   {user.name}
                 </span>
               </Link>
               <button
                 onClick={handleLogout}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-red-400"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated dark:text-white/90 text-gray-600 transition-colors hover:text-red-400"
               >
                 <LogOut size={16} />
               </button>
             </div>
-          ) : (
+          ) : mounted ? (
             <Link href="/dang-nhap">
-              <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated text-white/90 transition-colors hover:text-brand">
+              <button className="flex h-9 w-9 items-center justify-center rounded-full border border-border-dark-soft bg-surface-elevated dark:text-white/90 text-gray-600 transition-colors hover:text-brand">
                 <User size={16} />
               </button>
             </Link>
-          )}
+          ) : null}
         </div>
 
       </div>

@@ -4,21 +4,34 @@
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Home layout */
   --color-brand: #22d3c5;
   --color-brand-dark: #0d9488;
+
+  /* Home — light mode defaults */
+  --color-surface-dark: #ffffff;
+  --color-surface-elevated: #f1f5f9;
+  --color-border-dark: #e2e8f0;
+  --color-border-dark-soft: #cbd5e1;
+  --color-border-light: #ebebeb;
+
+  /* Admin — light mode defaults */
+  --color-admin-sidebar: #f8fafc;
+  --color-admin-header: #ffffff;
+  --color-admin-content: #f0f4f8;
+  --color-admin-border: #e2e8f0;
+  --color-admin-primary: #6366f1;
+}
+
+.dark {
   --color-surface-dark: #15181d;
   --color-surface-elevated: #1f2530;
   --color-border-dark: #242a33;
   --color-border-dark-soft: #2b3340;
-  --color-border-light: #ebebeb;
 
-  /* Admin layout */
   --color-admin-sidebar: #0b0f19;
   --color-admin-header: #141a28;
   --color-admin-content: #f5f7fb;
   --color-admin-border: #1f2638;
-  --color-admin-primary: #6366f1;
 }
 
 html,
@@ -32,6 +45,8 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-surface-dark);
+  color-scheme: light dark;
 }
 
 @layer base {

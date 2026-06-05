@@ -10,6 +10,8 @@ const bottomMenuList = [
   { path: "#", label: "Hỗ trợ", icon: HelpCircle },
 ];
 
+const inactiveItemCls = "dark:text-white/60 text-gray-600 dark:hover:bg-white/5 hover:bg-gray-100 dark:hover:text-white hover:text-gray-900";
+
 export default function AdminSidebar() {
   const pathname = usePathname();
 
@@ -20,8 +22,8 @@ export default function AdminSidebar() {
           <LayoutGrid size={18} className="text-white" />
         </div>
         <div className="flex flex-col">
-          <span className="text-base font-bold leading-tight text-white">Quản trị</span>
-          <span className="text-[11px] uppercase tracking-widest text-white/40">Hệ thống đặt phòng</span>
+          <span className="text-base font-bold leading-tight dark:text-white text-gray-900">Quản trị</span>
+          <span className="text-[11px] uppercase tracking-widest dark:text-white/40 text-gray-400">Hệ thống đặt phòng</span>
         </div>
       </div>
 
@@ -36,7 +38,7 @@ export default function AdminSidebar() {
               className={`mb-1 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                 isActive
                   ? "bg-admin-primary text-white"
-                  : "text-white/60 hover:bg-white/5 hover:text-white"
+                  : inactiveItemCls
               }`}
             >
               <Icon size={16} />
@@ -53,7 +55,7 @@ export default function AdminSidebar() {
             <Link
               key={item.label}
               href={item.path}
-              className="mb-1 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white"
+              className={`mb-1 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${inactiveItemCls}`}
             >
               <Icon size={16} />
               {item.label}
