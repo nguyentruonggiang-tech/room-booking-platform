@@ -134,7 +134,6 @@ export default function CommentSection({ maPhong }: Props) {
         <p className="text-base font-semibold text-gray-900">{comments.length} đánh giá</p>
       )}
 
-      {/* Danh sách — 2 cột */}
       {error ? (
         <p className="text-sm text-red-500">Không thể tải bình luận. Vui lòng thử lại.</p>
       ) : loading ? (
@@ -153,7 +152,6 @@ export default function CommentSection({ maPhong }: Props) {
         </div>
       )}
 
-      {/* Pagination */}
       {!loading && totalPages > 1 && (
         <div className="flex items-center justify-end gap-2">
           <button
@@ -176,7 +174,6 @@ export default function CommentSection({ maPhong }: Props) {
         </div>
       )}
 
-      {/* Form comment */}
       <div className="flex gap-3 border-t border-gray-100 pt-6">
         <div className="shrink-0">
           {user ? (

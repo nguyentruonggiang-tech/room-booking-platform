@@ -19,7 +19,6 @@ export default function RoomDetail({ room, location }: Props) {
   return (
     <div className="flex flex-col gap-6">
 
-      {/* Header: tên phòng + rating + share/lưu — full width */}
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold text-gray-900">{room.tenPhong}</h1>
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -57,10 +56,8 @@ export default function RoomDetail({ room, location }: Props) {
         </div>
       </div>
 
-      {/* Gallery — full width */}
       <RoomGallery hinhAnh={room.hinhAnh} tenPhong={room.tenPhong} />
 
-      {/* RoomInfo + BookingBox nằm ngang nhau */}
       <div className="flex gap-10">
         <div className="min-w-0 flex-1">
           <RoomInfo room={room} />
@@ -70,7 +67,6 @@ export default function RoomDetail({ room, location }: Props) {
         </div>
       </div>
 
-      {/* Comments — full width */}
       <CommentSection maPhong={room.id} />
     </div>
   );

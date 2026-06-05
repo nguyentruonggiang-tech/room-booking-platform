@@ -24,7 +24,6 @@ export default function RoomInfo({ room }: Props) {
   return (
     <div className="flex flex-col gap-6">
 
-      {/* Left block */}
       <div className="flex items-start justify-between gap-4 pt-6">
         <div className="flex flex-col gap-1">
           <p className="text-lg font-semibold text-gray-900">
@@ -42,7 +41,6 @@ export default function RoomInfo({ room }: Props) {
         />
       </div>
 
-      {/* Left block — điểm nổi bật */}
       <div className="flex flex-col gap-5 border-t border-gray-100 pt-6">
         {[
           {
@@ -76,7 +74,6 @@ export default function RoomInfo({ room }: Props) {
         ))}
       </div>
 
-      {/* Mô tả từ API */}
       <div className="border-t border-gray-100 pt-6">
         <p
           ref={moTaRef}
@@ -95,7 +92,6 @@ export default function RoomInfo({ room }: Props) {
         )}
       </div>
 
-      {/* Tiện nghi */}
       {activeAmenities.length > 0 && (
         <div className="border-t border-gray-100 pt-6">
           <h2 className="mb-4 text-lg font-semibold text-gray-900">Tiện nghi</h2>

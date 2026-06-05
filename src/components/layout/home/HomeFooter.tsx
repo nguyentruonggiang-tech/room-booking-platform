@@ -10,7 +10,6 @@ export default function HomeFooter() {
     <footer className="border-t border-border-dark bg-surface-dark">
       <HomeContainer className="py-10">
 
-        {/* Columns */}
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {footerColumnList.map((col) => (
             <div key={col.title} className="flex flex-col gap-2.5">
@@ -26,7 +25,6 @@ export default function HomeFooter() {
           ))}
         </div>
 
-        {/* Bottom bar */}
         <div className="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-border-dark-soft pt-5">
           <div className="flex flex-wrap items-center gap-2 text-sm dark:text-white/60 text-gray-400">
             <span>© {new Date().getFullYear()} Airbnb, Inc. All rights reserved</span>
