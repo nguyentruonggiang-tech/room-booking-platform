@@ -8,6 +8,7 @@ type Props = {
   loading: boolean;
   error: string | null;
   onDelete: (booking: AdminBooking) => void;
+  pageOffset: number;
 };
 
 const COLUMNS = ["STT", "Mã phòng", "Ngày đến", "Ngày đi", "Số khách", "Mã người dùng", "Thao tác"];
@@ -26,7 +27,7 @@ function TableHead() {
   );
 }
 
-export default function BookingTable({ bookings, loading, error, onDelete }: Props) {
+export default function BookingTable({ bookings, loading, error, onDelete, pageOffset }: Props) {
   if (loading) return <TableSkeleton />;
 
   if (error)
@@ -50,7 +51,7 @@ export default function BookingTable({ bookings, loading, error, onDelete }: Pro
         <tbody className="divide-y divide-gray-100">
           {bookings.map((booking, idx) => (
             <tr key={booking.id} className="hover:bg-gray-50/60">
-              <td className="px-6 py-4 text-gray-400">{idx + 1}</td>
+              <td className="px-6 py-4 text-gray-400">{pageOffset + idx + 1}</td>
               <td className="px-6 py-4 font-medium text-gray-900">{booking.maPhong}</td>
               <td className="px-6 py-4 text-gray-600">{formatDate(booking.ngayDen)}</td>
               <td className="px-6 py-4 text-gray-600">{formatDate(booking.ngayDi)}</td>
