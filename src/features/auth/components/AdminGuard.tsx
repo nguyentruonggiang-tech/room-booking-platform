@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
+import { useAutoLogout } from "@/hooks/useAutoLogout";
 
 const ADMIN_ROLE = "ADMIN";
 
@@ -11,6 +12,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
   const token = useAuthStore((s) => s.token);
   const role = useAuthStore((s) => s.user?.role);
   const [mounted, setMounted] = useState(false);
+  useAutoLogout();
 
   useEffect(() => {
     setMounted(true);
