@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
-
-const FALLBACK_IMG = "https://placehold.co/192x160/f3f4f6/9ca3af?text=No+Image";
+import { FALLBACK_IMG } from "@/constants/app.constants";
 
 type Props = {
   room: PhongViewModel;

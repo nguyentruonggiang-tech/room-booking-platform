@@ -7,12 +7,11 @@ import { roomService } from "@/features/rooms/services/room.service";
 import { getPaginationItems } from "@/shared/pagination/getPaginationItems";
 import { formatDate } from "@/shared/utils/date";
 import { AMENITIES } from "@/shared/constants/amenities";
+import { FALLBACK_IMG } from "@/constants/app.constants";
 import type { DatPhongViewModel } from "@/features/bookings/types/booking.type";
 import type { PhongViewModel } from "@/features/rooms/types/room.type";
 
 const PAGE_SIZE = 5;
-
-const FALLBACK_IMG = "https://placehold.co/192x160/f3f4f6/9ca3af?text=No+Image";
 const BTN_BASE = "inline-flex h-9 min-w-9 items-center justify-center rounded-lg border px-2 text-sm transition-colors";
 
 type BookingItem = {
